@@ -1,227 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quicktel Bundles - Till Payment</title>
+  <meta charset="UTF-8">
+  <title>Quicktel SMS Bundles</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #6a11cb, #2575fc);
-      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f5f5;
       padding: 20px;
-      text-align: center;
+      margin: 0;
     }
     .container {
-      background: rgba(0,0,0,0.4);
       max-width: 700px;
       margin: auto;
+    }
+    .bundle-card {
+      background: linear-gradient(135deg, #2ecc71, #27ae60);
+      color: white;
+      border-radius: 15px;
       padding: 20px;
-      border-radius: 12px;
-    }
-    .top-header {
       margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: transform 0.2s ease;
     }
-    .logo {
-      width: 180px;
-      height: auto;
+    .bundle-card:hover {
+      transform: scale(1.03);
     }
-    .welcome-banner {
-      font-size: 26px;
+    .bundle-info {
+      font-size: 20px;
       font-weight: bold;
-      margin-top: 10px;
-      animation: colorPulse 5s infinite;
     }
-    @keyframes colorPulse {
-      0%   { color: #ffd700; }
-      25%  { color: #00e676; }
-      50%  { color: #29b6f6; }
-      75%  { color: #ff4081; }
-      100% { color: #ffd700; }
+    .bundle-price {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffeb3b;
     }
-    input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 8px;
+    .buy-btn {
+      background: #ff9800;
+      color: white;
       border: none;
+      border-radius: 10px;
+      padding: 10px 20px;
       font-size: 16px;
-    }
-    .bundle-option {
-      margin: 8px;
-      padding: 12px;
-      border-radius: 8px;
-      font-weight: bold;
       cursor: pointer;
-      color: white;
+      transition: 0.2s;
     }
-    .bundle-option:hover {
-      filter: brightness(90%);
+    .buy-btn:hover {
+      background: #e68900;
     }
-    .category-title {
-      font-family: 'Times New Roman', Times, serif;
-      font-weight: bold;
-      font-size: 22px;
+    .terms {
+      font-size: 12px;
+      color: gray;
       margin-top: 30px;
-    }
-    .daily { background: #00c853; }
-    .weekly { background: #2196f3; }
-    .monthly { background: #9c27b0; }
-    .allinone { background: #fb8c00; }
-    #status {
-      margin-top: 20px;
-      font-weight: bold;
-    }
-    .whatsapp-button {
-      display: inline-block;
-      margin-top: 30px;
-      background-color: #25D366;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 18px;
-      font-weight: bold;
-    }
-    .qr-section {
-      margin-top: 20px;
-    }
-    .qr-section img {
-      width: 160px;
-      border-radius: 12px;
-      background: white;
-      padding: 8px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Top logo and welcome -->
-    <div class="top-header">
-      <img src="https://via.placeholder.com/200x60?text=Quicktel+Logo" alt="Quicktel Logo" class="logo"/>
-      <div class="welcome-banner">
-        🚀 Welcome to <strong>Quicktel Bundles</strong> – <span style="color:#ffeb3b;">Fast</span>, <span style="color:#69f0ae;">Reliable</span>, <span style="color:#ff8a65;">Affordable</span> 💡
-      </div>
+
+<div class="container">
+  <h2 style="text-align: center;">Quicktel SMS Bundles</h2>
+
+  <div class="bundle-card">
+    <div>
+      <div class="bundle-info">20 SMS</div>
+      <div class="bundle-price">KSh 5</div>
     </div>
-
-    <h1>Quicktel Bundles</h1>
-    <p>Select a bundle below. You'll be guided to pay and receive your bundle instantly!</p>
-
-    <form id="bundleForm">
-      <input type="tel" id="phone" placeholder="Enter MPESA phone (e.g. 2547...)" required />
-    </form>
-
-    <!-- Daily Bundles -->
-    <div class="category-title">Daily Bundles</div>
-    <div class="bundle-option daily" data-value="5" data-label="20 SMS">20 SMS - KSh 5</div>
-    <div class="bundle-option daily" data-value="10" data-label="200 SMS">200 SMS - KSh 10</div>
-    <div class="bundle-option daily" data-value="20" data-label="Unlimited SMS">Unlimited SMS - KSh 20</div>
-    <div class="bundle-option daily" data-value="50" data-label="100MB (7 days)">100MB - KSh 50</div>
-    <div class="bundle-option daily" data-value="100" data-label="200MB (7 days)">200MB - KSh 100</div>
-    <div class="bundle-option daily" data-value="250" data-label="500MB (7 days)">500MB - KSh 250</div>
-    <div class="bundle-option daily" data-value="500" data-label="1000MB (7 days)">1000MB - KSh 500</div>
-    <div class="bundle-option daily" data-value="10" data-label="100 mins Voice">100 mins Voice - KSh 10</div>
-
-    <!-- Weekly Bundles -->
-    <div class="category-title">Weekly Bundles</div>
-    <div class="bundle-option weekly" data-value="20" data-label="100 SMS">100 SMS - KSh 20</div>
-    <div class="bundle-option weekly" data-value="30" data-label="1000 SMS">1000 SMS - KSh 30</div>
-    <div class="bundle-option weekly" data-value="50" data-label="Unlimited SMS">Unlimited SMS - KSh 50</div>
-    <div class="bundle-option weekly" data-value="100" data-label="500MB + WhatsApp">500MB - KSh 100</div>
-    <div class="bundle-option weekly" data-value="250" data-label="1.5GB + WhatsApp">1.5GB - KSh 250</div>
-    <div class="bundle-option weekly" data-value="500" data-label="3.5GB + WhatsApp">3.5GB - KSh 500</div>
-    <div class="bundle-option weekly" data-value="150" data-label="BLAZE CYP (7 Days)">BLAZE CYP (7 Days) - KSh 150</div>
-
-    <!-- Monthly Bundles -->
-    <div class="category-title">Monthly Bundles</div>
-    <div class="bundle-option monthly" data-value="100" data-label="1500 SMS">1500 SMS - KSh 100</div>
-    <div class="bundle-option monthly" data-value="200" data-label="3500 SMS">3500 SMS - KSh 200</div>
-    <div class="bundle-option monthly" data-value="100" data-label="400MB">400MB - KSh 100</div>
-    <div class="bundle-option monthly" data-value="250" data-label="1GB">1GB - KSh 250</div>
-    <div class="bundle-option monthly" data-value="500" data-label="2GB">2GB - KSh 500</div>
-    <div class="bundle-option monthly" data-value="1000" data-label="8GB">8GB - KSh 1,000</div>
-    <div class="bundle-option monthly" data-value="2000" data-label="17GB">17GB - KSh 2,000</div>
-    <div class="bundle-option monthly" data-value="3000" data-label="27GB">27GB - KSh 3,000</div>
-    <div class="bundle-option monthly" data-value="5000" data-label="47GB">47GB - KSh 5,000</div>
-    <div class="bundle-option monthly" data-value="10000" data-label="100GB">100GB - KSh 10,000</div>
-
-    <!-- All-in-One Bundles -->
-    <div class="category-title">All in One Bundles</div>
-    <div class="bundle-option allinone" data-value="1000" data-label="8GB + 1000 SMS">8GB + 1000 SMS - KSh 1,000</div>
-    <div class="bundle-option allinone" data-value="2000" data-label="17GB + 2000 SMS">17GB + 2000 SMS - KSh 2,000</div>
-    <div class="bundle-option allinone" data-value="3000" data-label="27GB + 3000 SMS">27GB + 3000 SMS - KSh 3,000</div>
-    <div class="bundle-option allinone" data-value="5000" data-label="47GB + 5000 SMS">47GB + 5000 SMS - KSh 5,000</div>
-    <div class="bundle-option allinone" data-value="10000" data-label="100GB + 10,000 SMS">100GB + 10,000 SMS - KSh 10,000</div>
-
-    <!-- QR Code -->
-    <div class="qr-section">
-      <p>Scan to Pay Till Number</p>
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=8644442" alt="Till QR Code">
-    </div>
-
-    <div id="status"></div>
-
-    <!-- WhatsApp Help -->
-    <a href="https://wa.me/254113048974" target="_blank" class="whatsapp-button">📱 Chat on WhatsApp</a>
+    <button class="buy-btn" onclick="selectBundle('20 SMS', 5)">Buy</button>
   </div>
 
-  <script>
-    const bundleOptions = document.querySelectorAll('.bundle-option');
-    const phoneInput = document.getElementById('phone');
-    const statusDiv = document.getElementById('status');
+  <div class="bundle-card">
+    <div>
+      <div class="bundle-info">200 SMS</div>
+      <div class="bundle-price">KSh 10</div>
+    </div>
+    <button class="buy-btn" onclick="selectBundle('200 SMS', 10)">Buy</button>
+  </div>
 
-    function pollPayment(phone, amount, label) {
-      statusDiv.textContent = "⏳ Checking for payment confirmation...";
-      const polling = setInterval(async () => {
-        try {
-          const res = await fetch('/check-payment', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ phone, amount, label })
-          });
-          const data = await res.json();
-          if (data.success) {
-            clearInterval(polling);
-            statusDiv.innerHTML = `✅ ${label} activated successfully!`;
-          }
-        } catch (err) {
-          console.error('Error polling:', err);
-        }
-      }, 4000);
-    }
+  <div class="bundle-card">
+    <div>
+      <div class="bundle-info">Unlimited SMS</div>
+      <div class="bundle-price">KSh 20</div>
+    </div>
+    <button class="buy-btn" onclick="selectBundle('Unlimited SMS', 20)">Buy</button>
+  </div>
 
-    bundleOptions.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const amount = btn.dataset.value;
-        const label = btn.dataset.label;
-        const phone = phoneInput.value.trim();
+  <div class="terms">
+    By purchasing, you agree to our Terms and Conditions.
+  </div>
+</div>
 
-        if (!/^2547\d{8}$/.test(phone)) {
-          alert("Enter a valid MPESA number (e.g. 2547XXXXXXXX)");
-          return;
-        }
+<script>
+  function selectBundle(bundleName, price) {
+    alert(`You selected: ${bundleName} for KSh ${price}`);
+    // Here call your backend payment function
+  }
+</script>
 
-        const newTab = window.open('', '_blank');
-        newTab.document.write(`
-          <html>
-            <head><title>Pay via Till</title></head>
-            <body style="font-family: Arial; background: #f9f9f9; text-align: center; padding: 40px;">
-              <h2>Complete Payment</h2>
-              <p>You're purchasing: <strong>${label}</strong></p>
-              <p>Amount: <strong>KSh ${amount}</strong></p>
-              <p>Pay to the MPESA Till Number:</p>
-              <div style="font-size: 26px; margin: 20px; background: #e0e0e0; padding: 15px; border-radius: 8px;">8644442</div>
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=8644442" alt="Till QR Code">
-              <p>Using your number: <strong>${phone}</strong></p>
-              <p>After payment, return to the previous tab.</p>
-            </body>
-          </html>
-        `);
-
-        statusDiv.innerHTML = `🟢 Waiting for payment of KSh ${amount} from ${phone} for ${label}...`;
-        pollPayment(phone, amount, label);
-      });
-    });
-  </script>
 </body>
-  </html>
+</html>
