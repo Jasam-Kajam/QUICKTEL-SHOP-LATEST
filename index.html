@@ -580,7 +580,7 @@ function changeBundle() {
     document.querySelectorAll('#bundles .section').forEach(section => section.classList.remove('active'));
     document.getElementById(bundleSelect).classList.add('active');
 }
-</script>function startPay() {
+function startPay() {
     const phone = document.getElementById('phoneNumber').value.trim();
     if (!phone.match(/^07\d{8}$/)) {
         alert('Please enter a valid Safaricom number.');
@@ -615,5 +615,6 @@ function changeBundle() {
     }, 1000);
 }
 
+</script>
 </body>
 </html>
