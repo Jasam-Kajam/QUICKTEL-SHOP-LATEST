@@ -531,6 +531,45 @@
     </div>
 </div>
 
+<footer>
+    © 2025 Quicktel Bundles. All rights reserved.<br>
+    By using this service you agree to our 
+    <a href="#">Terms & Conditions</a>, 
+    <a href="#">Privacy Policy</a> and 
+    <a href="#">Refund Policy</a>.<br>
+    For support contact: <b>support@quicktel.com</b>
+</footer>
+
+<script>
+function showCategory(category) {
+    document.querySelectorAll('.grid').forEach(grid => grid.style.display = 'none');
+    document.getElementById(category).style.display = 'grid';
+}
+
+function buyBundle(bundle, price) {
+    const phone = prompt("Enter your phone number:");
+    if (!phone) return alert("Phone number is required");
+
+    let handler = PaystackPop.setup({
+        key: 'pk_live_3b95d82d975d8cd88f2e0059b1d6dca62c1db036',
+        email: phone + "@quicktel.com",
+        amount: price * 100, 
+        currency: "KES",
+        callback: function(response) {
+            fetch("http://your-backend-server.com/verify-payment", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ reference: response.reference, bundle: bundle, phone: phone })
+            })
+            .then(res => res.json())
+            .then(data => alert(data.message))
+            .catch(err => alert("Backend error: " + err));
+        },
+        onClose: function() { alert('Transaction cancelled'); }
+    });
+    handler.openIframe();
+}
+
 <script>
 // Handle main category change
 function changeMain() {
