@@ -531,44 +531,90 @@
     </div>
 </div>
 
-<footer>
-    © 2025 Quicktel Bundles. All rights reserved.<br>
-    By using this service you agree to our 
-    <a href="#">Terms & Conditions</a>, 
-    <a href="#">Privacy Policy</a> and 
-    <a href="#">Refund Policy</a>.<br>
-    For support contact: <b>support@quicktel.com</b>
-</footer>
-
 <script>
-function showCategory(category) {
-    document.querySelectorAll('.grid').forEach(grid => grid.style.display = 'none');
-    document.getElementById(category).style.display = 'grid';
+// Handle main category change
+function changeMain() {
+    const mainSelect = document.getElementById("mainSelect").value;
+    document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+
+    if (mainSelect === 'bundles') {
+        document.getElementById('bundles').classList.add('active');
+        document.getElementById('bundleSubSelectArea').style.display = 'inline';
+        changeBundle();
+    } else {
+        document.getElementById('bundleSubSelectArea').style.display = 'none';
+        alert("Currently no data for this category.");
+    }
 }
 
-function buyBundle(bundle, price) {
-    const phone = prompt("Enter your phone number:");
-    if (!phone) return alert("Phone number is required");
+// Handle bundle sub-category change
+function changeBundle() {
+    const bundleSelect = document.getElementById("bundleSelect").value;
+    document.querySelectorAll('#bundles .section').forEach(section => section.classList.remove('active'));
+    document.getElementById(bundleSelect).classList.add('active');
+}
+
+// Dummy payment function
+function buyBundle(bundleName, amount) {
+    alert("Buying " + bundleName + " for KSh " + amount);
+}
+</script>
+<script>
+function changeMain() {
+    const mainSelect = document.getElementById("mainSelect").value;
+    document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+
+    if (mainSelect === 'bundles') {
+        document.getElementById('bundles').classList.add('active');
+        document.getElementById('bundleSubSelectArea').style.display = 'inline';
+        changeBundle(); // update subcategory
+    } else {
+        document.getElementById('bundleSubSelectArea').style.display = 'none';
+        // You can show other sections here if you add minutes or sms later
+        alert("No data for this category yet.");
+    }
+}
+
+function changeBundle() {
+    const bundleSelect = document.getElementById("bundleSelect").value;
+    document.querySelectorAll('#bundles .section').forEach(section => section.classList.remove('active'));
+    document.getElementById(bundleSelect).classList.add('active');
+}
+function startPay() {
+    const phone = document.getElementById('phoneNumber').value.trim();
+    if (!phone.match(/^07\d{8}$/)) {
+        alert('Please enter a valid Safaricom number.');
+        return;
+    }
+    closeModal();
+    document.getElementById('overlay').style.display = 'block';
 
     let handler = PaystackPop.setup({
         key: 'pk_live_3b95d82d975d8cd88f2e0059b1d6dca62c1db036',
-        email: phone + "@quicktel.com",
-        amount: price * 100, 
+        email: 'quicktel@customer.com',
+        amount: selectedAmount * 100,
         currency: "KES",
         callback: function(response) {
-            fetch("http://your-backend-server.com/verify-payment", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ reference: response.reference, bundle: bundle, phone: phone })
-            })
-            .then(res => res.json())
-            .then(data => alert(data.message))
-            .catch(err => alert("Backend error: " + err));
+            document.getElementById('overlay').style.display = 'none';
+            verifyPayment(response.reference, phone);
         },
-        onClose: function() { alert('Transaction cancelled'); }
+        onClose: function() {
+            document.getElementById('overlay').style.display = 'none';
+            alert('Transaction closed.');
+        }
     });
     handler.openIframe();
+
+    // Force iframe to be larger after 1 second
+    setTimeout(() => {
+        let iframe = document.querySelector("iframe[name='checkout']");
+        if (iframe) {
+            iframe.style.width = '90%';
+            iframe.style.height = '90%';
+        }
+    }, 1000);
 }
+
 </script>
 
 </body>
