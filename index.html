@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quicktel Bundles</title>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(to bottom right, #f7f9fb, #ffffff);
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: purple;
+            font-size: 3em;
+            margin: 20px 0;
+        }
+        .dropdown-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        select {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 2px solid purple;
+            outline: none;
+            margin: 0 10px;
+            background: white;
+            color: #333;
+            cursor: pointer;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            padding: 30px 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .card:hover { transform: translateY(-5px); }
+        .logo { margin-bottom: 20px; }
+        .logo img { width: 100px; border-radius: 10px; }
+        .bundle-title { font-size: 1.8em; font-weight: 600; color: green; margin-bottom: 10px; }
+        .validity { font-size: 1.1em; color: #555; font-weight: 500; margin-bottom: 15px; }
+        .price { font-size: 1.5em; color: #f28b82; font-weight: bold; margin-bottom: 20px; }
+        .buy-label { font-size: 1em; color: #FFD700; font-weight: 600; margin-bottom: 15px; }
+        .buttons { display: flex; justify-content: center; gap: 15px; margin-top: 10px; }
+        .self-button, .others-button {
+            border: none; border-radius: 12px; padding: 10px 20px; font-size: 1em; font-weight: 500; cursor: pointer;
+        }
+        .self-button { background-color: #333; color: white; }
+        .others-button { background-color: #007bff; color: white; }
+        .popular { color: orange; font-weight: bold; margin-bottom: 5px; font-size: 1em; }
+        .section { display: none; }
+        .section.active { display: block; }
+    </style>
+</head>
+<body>
+
+<h1>QUICKTEL BUNDLES</h1>
+
+<div class="dropdown-container">
+    <label>Main Category:</label>
+    <select id="mainSelect" onchange="changeMain()">
+        <option value="bundles">Bundles</option>
+        <option value="minutes">Minutes</option>
+        <option value="sms">SMS</option>
+    </select>
+
+    <span id="bundleSubSelectArea" style="display:inline;">
+        <label>Sub Category:</label>
+        <select id="bundleSelect" onchange="changeBundle()">
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="special">Special Offers</option>
+        </select>
+    </span>
+</div>
+
+<div id="bundles" class="section active">
+
+    <!-- DAILY -->
+    <div id="daily" class="section active">
+        <div class="grid">
+            <div class="card">
+                <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
+                <div class="popular">⭐ Popular Now</div>
+                <div class="bundle-title">200MB</div>
+                <div class="validity">Valid: 1 Hour</div>
+                <div class="price">KSh 20</div>
+                <div class="buy-label">BUY FOR:</div>
+                <div class="buttons">
+                    <button class="self-button" onclick="buyBundle('200MB 1 Hour', 20)">Self</button>
+                    <button class="others-button">Others</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
+                <div class="bundle-title">300MB</div>
+                <div class="validity">Valid: 3 Hours</div>
+                <div class="price">KSh 25</div>
+                <div class="buy-label">BUY FOR:</div>
+                <div class="buttons">
+                    <button class="self-button" onclick="buyBundle('300MB 3 Hours', 25)">Self</button>
+                    <button class="others-button">Others</button>
+                </div>
+            </div>
+
+            <!-- You can add more bundles here -->
+        </div>
+    </div>
+
+    <!-- WEEKLY -->
+    <div id="weekly" class="section">
+        <div class="grid">
+            <div class="card">
+                <div class="bundle-title">1GB Weekly</div>
+                <div class="validity">Valid: 7 Days</div>
+                <div class="price">KSh 150</div>
+                <div class="buy-label">BUY FOR:</div>
+                <div class="buttons">
+                    <button class="self-button">Self</button>
+                    <button class="others-button">Others</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MONTHLY -->
+    <div id="monthly" class="section">
+        <div class="grid">
+            <div class="card">
+                <div class="bundle-title">5GB Monthly</div>
+                <div class="validity">Valid: 30 Days</div>
+                <div class="price">KSh 500</div>
+                <div class="buy-label">BUY FOR:</div>
+                <div class="buttons">
+                    <button class="self-button">Self</button>
+                    <button class="others-button">Others</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SPECIAL OFFERS -->
+    <div id="special" class="section">
+        <div class="grid">
+            <div class="card">
+                <div class="bundle-title">500 Minutes</div>
+                <div class="validity">Valid: 1 Week</div>
+                <div class="price">KSh 475</div>
+                <div class="buy-label">BUY FOR:</div>
+                <div class="buttons">
+                    <button class="self-button">Self</button>
+                    <button class="others-button">Others</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+// Handle main category change
+function changeMain() {
+    const mainSelect = document.getElementById("mainSelect").value;
+    document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+
+    if (mainSelect === 'bundles') {
+        document.getElementById('bundles').classList.add('active');
+        document.getElementById('bundleSubSelectArea').style.display = 'inline';
+        changeBundle();
+    } else {
+        document.getElementById('bundleSubSelectArea').style.display = 'none';
+        alert("Currently no data for this category.");
+    }
+}
+
+// Handle bundle sub-category change
+function changeBundle() {
+    const bundleSelect = document.getElementById("bundleSelect").value;
+    document.querySelectorAll('#bundles .section').forEach(section => section.classList.remove('active'));
+    document.getElementById(bundleSelect).classList.add('active');
+}
+
+// Dummy payment function
+function buyBundle(bundleName, amount) {
+    alert("Buying " + bundleName + " for KSh " + amount);
+}
+</script>
+
+</body>
+</html>
