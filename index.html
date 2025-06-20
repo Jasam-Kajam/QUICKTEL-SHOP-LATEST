@@ -559,6 +559,61 @@ function buyBundle(bundleName, amount) {
     alert("Buying " + bundleName + " for KSh " + amount);
 }
 </script>
+<script>
+function changeMain() {
+    const mainSelect = document.getElementById("mainSelect").value;
+    document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+
+    if (mainSelect === 'bundles') {
+        document.getElementById('bundles').classList.add('active');
+        document.getElementById('bundleSubSelectArea').style.display = 'inline';
+        changeBundle(); // update subcategory
+    } else {
+        document.getElementById('bundleSubSelectArea').style.display = 'none';
+        // You can show other sections here if you add minutes or sms later
+        alert("No data for this category yet.");
+    }
+}
+
+function changeBundle() {
+    const bundleSelect = document.getElementById("bundleSelect").value;
+    document.querySelectorAll('#bundles .section').forEach(section => section.classList.remove('active'));
+    document.getElementById(bundleSelect).classList.add('active');
+}
+</script>function startPay() {
+    const phone = document.getElementById('phoneNumber').value.trim();
+    if (!phone.match(/^07\d{8}$/)) {
+        alert('Please enter a valid Safaricom number.');
+        return;
+    }
+    closeModal();
+    document.getElementById('overlay').style.display = 'block';
+
+    let handler = PaystackPop.setup({
+        key: 'pk_live_3b95d82d975d8cd88f2e0059b1d6dca62c1db036',
+        email: 'quicktel@customer.com',
+        amount: selectedAmount * 100,
+        currency: "KES",
+        callback: function(response) {
+            document.getElementById('overlay').style.display = 'none';
+            verifyPayment(response.reference, phone);
+        },
+        onClose: function() {
+            document.getElementById('overlay').style.display = 'none';
+            alert('Transaction closed.');
+        }
+    });
+    handler.openIframe();
+
+    // Force iframe to be larger after 1 second
+    setTimeout(() => {
+        let iframe = document.querySelector("iframe[name='checkout']");
+        if (iframe) {
+            iframe.style.width = '90%';
+            iframe.style.height = '90%';
+        }
+    }, 1000);
+}
 
 </body>
 </html>
