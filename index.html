@@ -227,8 +227,8 @@ function changeBundle() {
 
 function payWithPaystack(bundleName, amount) {
     let handler = PaystackPop.setup({
-        key: 'pk_test_xxxxxxxxxxxxxxx', // Replace with your real Paystack key
-        email: 'customer@example.com',
+        key: 'pk_live_3b95d82d975d8cd88f2e0059b1d6dca62c1db036', // Replace with your real Paystack key
+        email: 'customer@quicktel-shop.com',
         amount: amount * 100,
         currency: 'KES',
         ref: ''+Math.floor((Math.random() * 1000000000) + 1),
