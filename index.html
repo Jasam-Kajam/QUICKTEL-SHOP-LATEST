@@ -2,99 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Quicktel Bundles</title>
+    <title>Quicktel Bundles App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" sizes="192x192" href="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg">
+    <link rel="apple-touch-icon" href="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js').then(() => console.log("Service Worker Registered"));
+        }
+    </script>
     <script src="https://js.paystack.co/v1/inline.js"></script>
     <style>
-        body 
-
-</div>{
+        body {
             font-family: 'Segoe UI', Arial, sans-serif;
             background: linear-gradient(to bottom right, #f7f9fb, #ffffff);
-            color: #333;
-            margin: 0;
-            padding: 0;
+            color: #333; margin: 0; padding: 0;
         }
-        h1 {
-            text-align: center;
-            color: purple;
-            font-size: 3em;
-            margin: 20px 0;
-        }
-        .dropdown-container {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+        h1 { text-align: center; color: purple; font-size: 2.5em; margin: 20px 0; }
+        .dropdown-container { text-align: center; margin-bottom: 30px; }
         select {
-            font-size: 1.2em;
-            padding: 10px 20px;
-            border-radius: 10px;
-            border: 2px solid purple;
-            outline: none;
-            margin: 0 10px;
-            background: white;
-            color: #333;
-            cursor: pointer;
+            font-size: 1.2em; padding: 10px 20px; border-radius: 10px;
+            border: 2px solid purple; background: white; color: #333; cursor: pointer;
         }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 20px; }
+        .card {
+            background: #fff; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            padding: 20px; text-align: center;
         }
-       .menu-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 30px;
-    cursor: pointer;
-}
-.menu-content {
-    display: none;
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-.menu-content a {
-    display: block;
-    padding: 10px 20px;
-    color: #333;
-    text-decoration: none;
-}
-.menu-content a:hover {
-    background: #f0f0f0;
-} .card {
-            background: #ffffff;
-            border-radius: 25px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            padding: 30px 20px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        .card:hover { transform: translateY(-5px); }
-        .logo { margin-bottom: 20px; }
-        .logo img { width: 100px; border-radius: 10px; }
-        .bundle-title { font-size: 1.8em; font-weight: 600; color: green; margin-bottom: 10px; }
-        .validity { font-size: 1.1em; color: #555; font-weight: 500; margin-bottom: 15px; }
-        .price { font-size: 1.5em; color: #f28b82; font-weight: bold; margin-bottom: 20px; }
-        .buy-label { font-size: 1em; color: #FFD700; font-weight: 600; margin-bottom: 15px; }
-        .buttons { display: flex; justify-content: center; gap: 15px; margin-top: 10px; }
+        .logo img { width: 80px; border-radius: 10px; }
+        .bundle-title { font-size: 1.5em; color: green; font-weight: bold; }
+        .validity { color: #555; margin: 10px 0; }
+        .price { font-size: 1.4em; color: #f28b82; font-weight: bold; }
+        .buy-label { color: gold; margin: 10px 0; }
+        .buttons { display: flex; justify-content: center; gap: 15px; }
         .self-button, .others-button {
-            border: none; border-radius: 12px; padding: 10px 20px; font-size: 1em; font-weight: 500; cursor: pointer;
+            padding: 10px 20px; border: none; border-radius: 10px; font-weight: 500; cursor: pointer;
         }
-        .self-button { background-color: #333; color: white; }
-        .others-button { background-color: #007bff; color: white; }
-        .popular { color: orange; font-weight: bold; margin-bottom: 5px; font-size: 1em; }
-        .section { display: none; }
-        .section.active { display: block; }
+        .self-button { background: #333; color: white; }
+        .others-button { background: #007bff; color: white; }
+        footer { text-align: center; padding: 20px; font-size: 0.9em; background: #eee; margin-top: 50px; }
+        .menu-btn { position: absolute; top: 10px; right: 10px; font-size: 30px; cursor: pointer; }
+        .menu-content {
+            display: none; position: absolute; top: 50px; right: 10px;
+            background: white; border: 1px solid #ddd; border-radius: 8px;
+            padding: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .menu-content a {
+            display: block; padding: 8px; text-decoration: none; color: #333;
+        }
     </style>
 </head>
 <body>
+
 <div class="menu-btn" onclick="toggleMenu()">&#9776;</div>
 <div class="menu-content" id="menuContent">
     <a href="terms.html">Terms & Conditions</a>
@@ -102,976 +62,120 @@
     <a href="#" onclick="selectCategory('bundles')">Bundles</a>
     <a href="#" onclick="selectCategory('minutes')">Minutes</a>
     <a href="#" onclick="selectCategory('sms')">SMS</a>
-    <a href="https://wa.me/254729952483" target=\"_blank\">Support</a>
+    <a href="https://wa.me/254729952483" target="_blank">Support</a>
 </div>
 
-<h1>QUICKTEL BUNDLES</h1>
+<h1>QUICKTEL BUNDLES APP</h1>
 
 <div class="dropdown-container">
+<div style="text-align:center; margin-bottom:20px;">
+    <button id="installBtn" style="padding: 15px 30px; font-size: 1.2em; border: none; border-radius: 10px; background: purple; color: white; cursor: pointer; display: none;">
+        📲 Install Quicktel App
+    </button>
+</div>
     <label>Main Category:</label>
     <select id="mainSelect" onchange="changeMain()">
         <option value="bundles">Bundles</option>
         <option value="minutes">Minutes</option>
         <option value="sms">SMS</option>
     </select>
-
-    <span id="bundleSubSelectArea" style="display:inline;">
-        <label>Sub Category:</label>
-        <select id="bundleSelect" onchange="changeBundle()">
-            <option value="daily">Daily</option>
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-            <option value="special">Special Offers</option>
-        </select>
-    </span>
 </div>
 
 <!-- BUNDLES SECTION -->
-<div id="bundles" class="section active">
-
-    <!-- DAILY -->
-    <div id="daily" class="section active">
-        <div class="grid">
-            <!-- Example offer -->
-            <div class="card">
-                <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-                <div class="bundle-title">200MB</div>
-                <div class="validity">Valid: 1 Hour</div>
-                <div class="price">KSh 20</div>
-                <div class="buy-label">BUY FOR:</div>
-                <div class="buttons">
-                    <button class="self-button" onclick="payWithPaystack('200MB 1 Hour', 20)">Self</button>
-                    <button class="others-button">Others</button>
-                </div>
-            </div>
-           
-    <div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">100MB</div>
-    <div class="validity">Valid: 1 Hour</div>
-    <div class="price">KSh 10</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('100MB 1 Hour', 10)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">200MB</div>
-    <div class="validity">Valid: 3 Hours</div>
-    <div class="price">KSh 20</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('200MB 3 Hours', 20)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">300MB</div>
-    <div class="validity">Valid: 6 Hours</div>
-    <div class="price">KSh 30</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('300MB 6 Hours', 30)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">500MB</div>
-    <div class="validity">Valid: 12 Hours</div>
-    <div class="price">KSh 50</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('500MB 12 Hours', 50)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">750MB</div>
-    <div class="validity">Valid: 24 Hours</div>
-    <div class="price">KSh 70</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('750MB Daily', 70)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">1GB</div>
-    <div class="validity">Valid: 24 Hours</div>
-    <div class="price">KSh 90</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('1GB Daily', 90)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">1.5GB</div>
-    <div class="validity">Valid: 24 Hours</div>
-    <div class="price">KSh 120</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('1.5GB Daily', 120)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">2GB</div>
-    <div class="validity">Valid: 24 Hours</div>
-    <div class="price">KSh 150</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('2GB Daily', 150)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">3GB</div>
-    <div class="validity">Valid: 24 Hours</div>
-    <div class="price">KSh 200</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('3GB Daily', 200)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">5GB</div>
-    <div class="validity">Valid: 24 Hours</div>
-    <div class="price">KSh 300</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('5GB Daily', 300)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">10GB</div>
-    <div class="validity">Valid: 24 Hours</div>
-    <div class="price">KSh 500</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('10GB Daily', 500)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-        </div>
-    </div>
-
-    <!-- WEEKLY -->
-    <div id="weekly" class="section">
-        <div class="grid">
-            <div class="card">
-                <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-                <div class="bundle-title">1GB Weekly</div>
-                <div class="validity">Valid: 7 Days</div>
-                <div class="price">KSh 150</div>
-                <div class="buy-label">BUY FOR:</div>
-                <div class="buttons">
-                    <button class="self-button" onclick="payWithPaystack('1GB Weekly', 150)">Self</button>
-                    <button class="others-button">Others</button>
-                </div>
-            </div>
-            <div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">500MB</div>
-    <div class="validity">Valid: 7 Days</div>
-    <div class="price">KSh 60</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('500MB Weekly', 60)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">750MB</div>
-    <div class="validity">Valid: 7 Days</div>
-    <div class="price">KSh 80</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('750MB Weekly', 80)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">1GB</div>
-    <div class="validity">Valid: 7 Days</div>
-    <div class="price">KSh 100</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('1GB Weekly', 100)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">1.5GB</div>
-    <div class="validity">Valid: 7 Days</div>
-    <div class="price">KSh 130</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('1.5GB Weekly', 130)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">2GB</div>
-    <div class="validity">Valid: 7 Days</div>
-    <div class="price">KSh 160</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('2GB Weekly', 160)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">3GB</div>
-    <div class="validity">Valid: 7 Days</div>
-    <div class="price">KSh 200</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('3GB Weekly', 200)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">5GB</div>
-    <div class="validity">Valid: 7 Days</div>
-    <div class="price">KSh 300</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('5GB Weekly', 300)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">7GB</div>
-    <div class="validity">Valid: 7 Days</div>
-    <div class="price">KSh 400</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('7GB Weekly', 400)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">10GB</div>
-    <div class="validity">Valid: 7 Days</div>
-    <div class="price">KSh 500</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('10GB Weekly', 500)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">15GB</div>
-    <div class="validity">Valid: 7 Days</div>
-    <div class="price">KSh 700</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('15GB Weekly', 700)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">20GB</div>
-    <div class="validity">Valid: 7 Days</div>
-    <div class="price">KSh 900</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('20GB Weekly', 900)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-        </div>
-    </div>
-
-    <!-- MONTHLY -->
-    <div id="monthly" class="section">
-        <div class="grid">
-            <div class="card">
-                <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-                <div class="bundle-title">5GB Monthly</div>
-                <div class="validity">Valid: 30 Days</div>
-                <div class="price">KSh 500</div>
-                <div class="buy-label">BUY FOR:</div>
-                <div class="buttons">
-                    <button class="self-button" onclick="payWithPaystack('5GB Monthly', 500)">Self</button>
-                    <button class="others-button">Others</button>
-                </div>
-            </div>
-            <div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">1GB</div>
-    <div class="validity">Valid: 30 Days</div>
-    <div class="price">KSh 150</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('1GB Monthly', 150)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">2GB</div>
-    <div class="validity">Valid: 30 Days</div>
-    <div class="price">KSh 250</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('2GB Monthly', 250)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">3GB</div>
-    <div class="validity">Valid: 30 Days</div>
-    <div class="price">KSh 350</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('3GB Monthly', 350)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">5GB</div>
-    <div class="validity">Valid: 30 Days</div>
-    <div class="price">KSh 500</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('5GB Monthly', 500)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">7GB</div>
-    <div class="validity">Valid: 30 Days</div>
-    <div class="price">KSh 700</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('7GB Monthly', 700)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">10GB</div>
-    <div class="validity">Valid: 30 Days</div>
-    <div class="price">KSh 900</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('10GB Monthly', 900)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">15GB</div>
-    <div class="validity">Valid: 30 Days</div>
-    <div class="price">KSh 1200</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('15GB Monthly', 1200)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">20GB</div>
-    <div class="validity">Valid: 30 Days</div>
-    <div class="price">KSh 1500</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('20GB Monthly', 1500)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">30GB</div>
-    <div class="validity">Valid: 30 Days</div>
-    <div class="price">KSh 2000</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('30GB Monthly', 2000)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">50GB</div>
-    <div class="validity">Valid: 30 Days</div>
-    <div class="price">KSh 3000</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('50GB Monthly', 3000)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">100GB</div>
-    <div class="validity">Valid: 30 Days</div>
-    <div class="price">KSh 5000</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('100GB Monthly', 5000)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-        </div>
-    </div>
-
-    <!-- SPECIAL -->
-    <div id="special" class="section">
-        <div class="grid">
-            <div class="card">
-                <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-                <div class="bundle-title">500 Minutes</div>
-                <div class="validity">Valid: 1 Week</div>
-                <div class="price">KSh 475</div>
-                <div class="buy-label">BUY FOR:</div>
-                <div class="buttons">
-                    <button class="self-button" onclick="payWithPaystack('500 Minutes', 475)">Self</button>
-                    <button class="others-button">Others</button>
-                </div>
-            </div>
-            <div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">Binge Pack 2GB</div>
-    <div class="validity">Valid: 1 Night (10PM-6AM)</div>
-    <div class="price">KSh 50</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('Binge Pack 2GB', 50)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">Weekend Pack 5GB</div>
-    <div class="validity">Valid: Sat-Sun</div>
-    <div class="price">KSh 250</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('Weekend Pack 5GB', 250)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">Night Stream 3GB</div>
-    <div class="validity">Valid: 7 Nights (10PM-6AM)</div>
-    <div class="price">KSh 120</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('Night Owl 3GB', 120)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">Social Pack 1GB</div>
-    <div class="validity">Valid: 1 Day (Social Apps)</div>
-    <div class="price">KSh 20</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('Social Pack 1GB', 20)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">Gaming Pack 2GB</div>
-    <div class="validity">Valid: 3 Days</div>
-    <div class="price">KSh 90</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('Gaming Pack 2GB', 90)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">YouTube Pack 5GB</div>
-    <div class="validity">Valid: 7 Days</div>
-    <div class="price">KSh 300</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('YouTube Pack 5GB', 300)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">Student Pack 10GB</div>
-    <div class="validity">Valid: 30 Days (Student Only)</div>
-    <div class="price">KSh 600</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('Student Pack 10GB', 600)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">Unlimited Lite</div>
-    <div class="validity">Valid: 24 Hours (1Mbps)</div>
-    <div class="price">KSh 300</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('Unlimited Lite 24H', 300)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">Work From Home 20GB</div>
-    <div class="validity">Valid: 7 Days</div>
-    <div class="price">KSh 1000</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('Work From Home 20GB', 1000)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">Premium Pack 50GB</div>
-    <div class="validity">Valid: 30 Days</div>
-    <div class="price">KSh 3500</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('Premium Pack 50GB', 3500)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">VIP Unlimited</div>
-    <div class="validity">Valid: 30 Days (5Mbps)</div>
-    <div class="price">KSh 5000</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('VIP Unlimited 30 Days', 5000)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-        </div>
-    </div>
-
-</div>
-
-<!-- MINUTES -->
-<div id="minutes" class="section">
+<div id="bundles" class="section">
     <div class="grid">
+
+        <!-- SAMPLE BUNDLE CARD - Paste all previous offers here -->
         <div class="card">
             <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-            <div class="bundle-title">100 Minutes</div>
-            <div class="validity">Valid: 1 Day</div>
-            <div class="price">KSh 50</div>
+            <div class="bundle-title">1GB Daily</div>
+            <div class="validity">Valid: 24 Hours</div>
+            <div class="price">KSh 55</div>
             <div class="buy-label">BUY FOR:</div>
             <div class="buttons">
-                <button class="self-button" onclick="payWithPaystack('100 Minutes', 50)">Self</button>
+                <button class="self-button" onclick="payWithPaystack('1GB Daily', 55)">Self</button>
                 <button class="others-button">Others</button>
             </div>
         </div>
-        <div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">10 Minutes</div>
-    <div class="validity">Valid: 1 Hour</div>
-    <div class="price">KSh 5</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('10 Minutes', 5)">Self</button>
-        <button class="others-button">Others</button>
+
+        <!-- Add all other bundles same style -->
+
     </div>
 </div>
 
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">20 Minutes</div>
-    <div class="validity">Valid: 3 Hours</div>
-    <div class="price">KSh 10</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('20 Minutes', 10)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">50 Minutes</div>
-    <div class="validity">Valid: 1 Day</div>
-    <div class="price">KSh 20</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('50 Minutes', 20)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">100 Minutes</div>
-    <div class="validity">Valid: 2 Days</div>
-    <div class="price">KSh 40</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('100 Minutes', 40)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">150 Minutes</div>
-    <div class="validity">Valid: 3 Days</div>
-    <div class="price">KSh 60</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('150 Minutes', 60)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">200 Minutes</div>
-    <div class="validity">Valid: 5 Days</div>
-    <div class="price">KSh 80</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('200 Minutes', 80)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">300 Minutes</div>
-    <div class="validity">Valid: 7 Days</div>
-    <div class="price">KSh 110</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('300 Minutes', 110)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">500 Minutes</div>
-    <div class="validity">Valid: 10 Days</div>
-    <div class="price">KSh 150</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('500 Minutes', 150)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">750 Minutes</div>
-    <div class="validity">Valid: 14 Days</div>
-    <div class="price">KSh 200</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('750 Minutes', 200)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">1000 Minutes</div>
-    <div class="validity">Valid: 21 Days</div>
-    <div class="price">KSh 250</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('1000 Minutes', 250)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">1500 Minutes</div>
-    <div class="validity">Valid: 30 Days</div>
-    <div class="price">KSh 300</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('1500 Minutes', 300)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-    </div>
-</div>
-
-<!-- SMS -->
-<div id="sms" class="section">
+<!-- MINUTES SECTION -->
+<div id="minutes" class="section" style="display:none;">
     <div class="grid">
-        <div class="card">
-            <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-            <div class="bundle-title">200 SMS</div>
-            <div class="validity">Valid: 7 Days</div>
-            <div class="price">KSh 30</div>
-            <div class="buy-label">BUY FOR:</div>
-            <div class="buttons">
-                <button class="self-button" onclick="payWithPaystack('200 SMS', 30)">Self</button>
-                <button class="others-button">Others</button>
-            </div>
-        </div>
-        <div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">50 SMS</div>
-    <div class="validity">Valid: 1 Day</div>
-    <div class="price">KSh 10</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('50 SMS', 10)">Self</button>
-        <button class="others-button">Others</button>
+        <!-- Paste your 11 minutes offers here -->
     </div>
 </div>
 
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">100 SMS</div>
-    <div class="validity">Valid: 2 Days</div>
-    <div class="price">KSh 20</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('100 SMS', 20)">Self</button>
-        <button class="others-button">Others</button>
+<!-- SMS SECTION -->
+<div id="sms" class="section" style="display:none;">
+    <div class="grid">
+        <!-- Paste your 10+ SMS offers here -->
     </div>
 </div>
 
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">150 SMS</div>
-    <div class="validity">Valid: 3 Days</div>
-    <div class="price">KSh 30</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('150 SMS', 30)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">200 SMS</div>
-    <div class="validity">Valid: 5 Days</div>
-    <div class="price">KSh 40</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('200 SMS', 40)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">300 SMS</div>
-    <div class="validity">Valid: 7 Days</div>
-    <div class="price">KSh 50</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('300 SMS', 50)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">500 SMS</div>
-    <div class="validity">Valid: 14 Days</div>
-    <div class="price">KSh 70</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('500 SMS', 70)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">750 SMS</div>
-    <div class="validity">Valid: 21 Days</div>
-    <div class="price">KSh 90</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('750 SMS', 90)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">1000 SMS</div>
-    <div class="validity">Valid: 30 Days</div>
-    <div class="price">KSh 120</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('1000 SMS', 120)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">1500 SMS</div>
-    <div class="validity">Valid: 45 Days</div>
-    <div class="price">KSh 150</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('1500 SMS', 150)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-</div>
-
-<div class="card">
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="bundle-title">2000 SMS</div>
-    <div class="validity">Valid: 60 Days</div>
-    <div class="price">KSh 200</div>
-    <div class="buy-label">BUY FOR:</div>
-    <div class="buttons">
-        <button class="self-button" onclick="payWithPaystack('2000 SMS', 200)">Self</button>
-        <button class="others-button">Others</button>
-    </div>
-   </div>
-   </div>
-</div>
+<footer>
+    &copy; 2025 Quicktel Bundles | 
+    <a href="terms.html">Terms</a> | 
+    <a href="privacy.html">Privacy</a> | 
+    <a href="https://wa.me/254729952483" target="_blank">Support</a>
+</footer>
 
 <script>
-function selectCategory(category) {
-    document.getElementById('mainSelect').value = category;
-    changeMain();
-    toggleMenu(); // close the hamburger menu after selection
+let deferredPrompt;
+const installBtn = document.getElementById("installBtn");
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.style.display = 'inline-block';
+});
+
+installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+            console.log('User accepted the install');
+        }
+        deferredPrompt = null;
+        installBtn.style.display = 'none';
+    }
+});
+function changeMain() {
+    var main = document.getElementById("mainSelect").value;
+    document.getElementById("bundles").style.display = (main == "bundles") ? "block" : "none";
+    document.getElementById("minutes").style.display = (main == "minutes") ? "block" : "none";
+    document.getElementById("sms").style.display = (main == "sms") ? "block" : "none";
+}
+function payWithPaystack(bundle, amount) {
+    var handler = PaystackPop.setup({
+        key: 'pk_live_your_paystack_key_here',
+        email: 'customer@example.com',
+        amount: amount * 100,
+        currency: 'KES',
+        callback: function(response) {
+            alert('Payment successful! Reference: ' + response.reference);
+        },
+        onClose: function() {
+            alert('Transaction cancelled.');
+        }
+    });
+    handler.openIframe();
 }
 function toggleMenu() {
     var menu = document.getElementById("menuContent");
     menu.style.display = (menu.style.display === "block") ? "none" : "block";
 }
-function changeMain() {
-    const mainSelect = document.getElementById("mainSelect").value;
-    document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
-
-    if (mainSelect === 'bundles') {
-        document.getElementById('bundles').classList.add('active');
-        document.getElementById('bundleSubSelectArea').style.display = 'inline';
-        changeBundle();
-    } else {
-        document.getElementById('bundleSubSelectArea').style.display = 'none';
-        document.getElementById(mainSelect).classList.add('active');
-    }
-}
-
-function changeBundle() {
-    const bundleSelect = document.getElementById("bundleSelect").value;
-    document.querySelectorAll('#bundles .section').forEach(section => section.classList.remove('active'));
-    document.getElementById(bundleSelect).classList.add('active');
-}
-
-function payWithPaystack(bundleName, amount) {
-    let handler = PaystackPop.setup({
-        key: 'pk_live_3b95d82d975d8cd88f2e0059b1d6dca62c1db036', // Replace with your real Paystack key
-        email: 'customer@quicktel-shop.com',
-        amount: amount * 100,
-        currency: 'KES',
-        ref: ''+Math.floor((Math.random() * 1000000000) + 1),
-        metadata: {
-            custom_fields: [
-                {
-                    display_name: "Bundle",
-                    variable_name: "bundle",
-                    value: bundleName
-                }
-            ]
-        },
-        callback: function(response) {
-            alert('Payment successful! Reference: ' + response.reference);
-        },
-        onClose: function() {
-            alert('Payment cancelled');
-        }
-    });
-    handler.openIframe();
+function selectCategory(category) {
+    document.getElementById("mainSelect").value = category;
+    changeMain();
+    toggleMenu();
 }
 </script>
-<footer style="text-align: center; padding: 20px; background-color: #f2f2f2; color: #555; font-size: 0.9em; border-top: 1px solid #ddd; margin-top: 50px;">
-    <p>© 2025 Quicktel Bundles. All Rights Reserved.</p>
-    <p>
-        <a href="terms.html" style="color: #555; text-decoration: none; margin: 0 10px;">Terms & Conditions</a> |
-        <a href="privacy.html" style="color: #555; text-decoration: none; margin: 0 10px;">Privacy Policy</a> |
-        <a href="https://wa.me/254729952483" target="_blank" style="color: #555; text-decoration: none; margin: 0 10px;">Support</a>
-    </p>
-</footer>
+
 </body>
 </html>
