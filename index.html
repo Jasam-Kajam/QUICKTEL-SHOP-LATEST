@@ -95,15 +95,15 @@
     </style>
 </head>
 <body>
-<<div class="menu-btn" onclick="toggleMenu()">&#9776;</div>
+<div class="menu-btn" onclick="toggleMenu()">&#9776;</div>
 <div class="menu-content" id="menuContent">
     <a href="terms.html">Terms & Conditions</a>
     <a href="privacy.html">Privacy Policy</a>
-    <a href="#bundlesSection">Bundles</a>
-    <a href="#minutesSection">Minutes</a>
-    <a href="#smsSection">SMS</a>
-    <a href="#specialSection">Special Offers</a>
-    <a href="https://wa.me/254729952483" target="_blank">Support</a>
+    <a href="#" onclick="selectCategory('bundles')">Bundles</a>
+    <a href="#" onclick="selectCategory('minutes')">Minutes</a>
+    <a href="#" onclick="selectCategory('sms')">SMS</a>
+    <a href="#" onclick="selectCategory('special')">Special Offers</a>
+    <a href="https://wa.me/254729952483" target=\"_blank\">Support</a>
 </div>
 
 <h1>QUICKTEL BUNDLES</h1>
@@ -115,29 +115,6 @@
         <option value="minutes">Minutes</option>
         <option value="sms">SMS</option>
     </select>
-<div id="bundlesSection">
-  <div id="bundles" class="section">
-      <!-- bundles content -->
-  </div>
-</div>
-
-<div id="minutesSection">
-  <div id="minutes" class="section" style="display:none;">
-      <!-- minutes content -->
-  </div>
-</div>
-
-<div id="smsSection">
-  <div id="sms" class="section" style="display:none;">
-      <!-- sms content -->
-  </div>
-</div>
-
-<div id="specialSection">
-  <div id="special" class="section" style="display:none;">
-      <!-- special offers content -->
-  </div>
-</div>
 
     <span id="bundleSubSelectArea" style="display:inline;">
         <label>Sub Category:</label>
@@ -1034,6 +1011,11 @@
 </div>
 
 <script>
+function selectCategory(category) {
+    document.getElementById('mainSelect').value = category;
+    changeMain();
+    toggleMenu(); // close the hamburger menu after selection
+}
 function toggleMenu() {
     var menu = document.getElementById("menuContent");
     menu.style.display = (menu.style.display === "block") ? "none" : "block";
