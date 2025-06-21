@@ -51,7 +51,32 @@
             align-items: center;
             padding: 20px;
         }
-        .card {
+       .menu-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+}
+.menu-content {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.menu-content a {
+    display: block;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+}
+.menu-content a:hover {
+    background: #f0f0f0;
+} .card {
             background: #ffffff;
             border-radius: 25px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.08);
@@ -984,6 +1009,10 @@
 </div>
 
 <script>
+function toggleMenu() {
+    var menu = document.getElementById("menuContent");
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
 function changeMain() {
     const mainSelect = document.getElementById("mainSelect").value;
     document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
