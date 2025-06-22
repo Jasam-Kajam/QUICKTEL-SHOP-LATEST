@@ -5,19 +5,51 @@
     <title>Quicktel Bundles</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: linear-gradient(to bottom right, #cceaff, #ffffff); margin:0; padding:0; }
-        header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(to bottom right, #cceaff, #ffffff);
+            margin: 0; padding: 0;
+        }
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 20px; background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
         .logo img { width: 50px; border-radius: 8px; }
         .hamburger { font-size: 30px; cursor: pointer; }
-        .sidebar { position: fixed; top: 0; right: -250px; width: 250px; height: 100%; background: #fff; box-shadow: -2px 0 5px rgba(0,0,0,0.3); transition: right 0.3s; padding: 20px; z-index: 999; }
-        .sidebar a { display: block; margin: 15px 0; font-size: 1.2em; color: purple; text-decoration: none; }
+        .sidebar {
+            position: fixed; top: 0; right: -250px; width: 250px; height: 100%;
+            background: #fff; box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+            transition: right 0.3s; padding: 20px; z-index: 999;
+        }
+        .sidebar a {
+            display: block; margin: 15px 0; font-size: 1.2em; color: purple;
+            text-decoration: none;
+        }
         .sidebar.show { right: 0; }
 
-        h1 { text-align: center; color: #6a1b9a; font-size: 2.2em; margin: 20px 0; }
-        .dropdown-container { text-align: center; margin-bottom: 20px; }
-        select { font-size: 1.2em; padding: 10px 20px; border-radius: 10px; border: 2px solid purple; margin: 0 10px; background: white; color: #333; cursor: pointer; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 20px; }
-        .card { background: #ffffff; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); padding: 25px 20px; text-align: center; transition: transform 0.3s ease; }
+        h1 {
+            text-align: center; color: #6a1b9a;
+            font-size: 2.2em; margin: 20px 0;
+        }
+        .dropdown-container {
+            text-align: center; margin-bottom: 20px;
+        }
+        select {
+            font-size: 1.2em; padding: 10px 20px;
+            border-radius: 10px; border: 2px solid purple;
+            margin: 0 10px; background: white; color: #333; cursor: pointer;
+        }
+        .grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px; padding: 20px;
+        }
+        .card {
+            background: #fff; border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            padding: 25px 20px; text-align: center;
+            transition: transform 0.3s ease;
+        }
         .card:hover { transform: translateY(-5px); }
         .logo-card img { width: 80px; border-radius: 10px; margin-bottom: 10px; }
         .bundle-title { font-size: 1.5em; font-weight: 600; color: green; margin-bottom: 8px; }
@@ -25,149 +57,175 @@
         .price { font-size: 1.4em; color: #f28b82; font-weight: bold; margin-bottom: 15px; }
         .buy-label { font-size: 1em; color: #FFD700; font-weight: 600; margin-bottom: 10px; }
         .buttons { display: flex; justify-content: center; gap: 10px; }
-        .self-button, .others-button { border: none; border-radius: 8px; padding: 10px 20px; font-size: 1em; font-weight: 500; cursor: pointer; }
+        .self-button, .others-button {
+            border: none; border-radius: 8px; padding: 10px 20px;
+            font-size: 1em; font-weight: 500; cursor: pointer;
+        }
         .self-button { background-color: #333; color: white; }
         .others-button { background-color: #007bff; color: white; }
         .section { display: none; }
         .section.active { display: block; }
-        footer { text-align: center; padding: 15px; background: #eee; margin-top: 30px; font-size: 0.9em; }
+        footer {
+            text-align: center; padding: 15px; background: #eee;
+            margin-top: 30px; font-size: 0.9em;
+        }
         footer a { color: purple; margin: 0 10px; text-decoration: none; }
     </style>
 </head>
+
 <body>
-<header>
-    <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-    <div class="hamburger" onclick="toggleSidebar()">&#9776;</div>
-</header>
 
-<div class="sidebar" id="sidebar">
-    <a href="#" onclick="closeSidebar()">Close</a>
-    <a href="#" onclick="document.getElementById('mainSelect').value='bundles';changeMain();closeSidebar();">Bundles</a>
-    <a href="#" onclick="document.getElementById('mainSelect').value='minutes';changeMain();closeSidebar();">Minutes</a>
-    <a href="#" onclick="document.getElementById('mainSelect').value='sms';changeMain();closeSidebar();">SMS</a>
-    <a href="terms.html">Terms & Conditions</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="https://wa.me/254729952483" target="_blank">Support</a>
-</div>
+    <!-- Header with Logo & Hamburger -->
+    <header>
+        <div class="logo">
+            <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg">
+        </div>
+        <div class="hamburger" onclick="toggleSidebar()">&#9776;</div>
+    </header>
 
-<h1>QUICKTEL BUNDLES</h1>
+    <!-- Sidebar Menu -->
+    <div class="sidebar" id="sidebar">
+        <a href="#" onclick="closeSidebar()">Close</a>
+        <a href="#" onclick="selectMain('bundles')">Bundles</a>
+        <a href="#" onclick="selectMain('minutes')">Minutes</a>
+        <a href="#" onclick="selectMain('sms')">SMS</a>
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="https://wa.me/254729952483" target="_blank">Support</a>
+    </div>
 
-<div class="dropdown-container">
-    <label>Main Category:</label>
-    <select id="mainSelect" onchange="changeMain()">
-        <option value="bundles">Bundles</option>
-        <option value="minutes">Minutes</option>
-        <option value="sms">SMS</option>
-    </select>
+    <!-- Page Title -->
+    <h1>QUICKTEL BUNDLES</h1>
 
-    <span id="bundleSubSelectArea">
-        <label>Sub Category:</label>
-        <select id="bundleSelect" onchange="changeBundle()">
-            <option value="daily">Daily</option>
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-            <option value="special">Special</option>
+    <!-- Dropdowns -->
+    <div class="dropdown-container">
+        <label>Main Category:</label>
+        <select id="mainSelect" onchange="changeMain()">
+            <option value="bundles">Bundles</option>
+            <option value="minutes">Minutes</option>
+            <option value="sms">SMS</option>
         </select>
-    </span>
-</div>
 
-<!-- Bundles Section -->
-<div id="bundles" class="section active">
-    <div id="daily" class="section active">
+        <span id="bundleSubSelectArea">
+            <label>Sub Category:</label>
+            <select id="bundleSelect" onchange="changeBundle()">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="special">Special</option>
+            </select>
+        </span>
+    </div>
+
+    <!-- Bundles Section -->
+    <div id="bundles" class="section active">
+        <div id="daily" class="section active">
+            <div class="grid">
+                <!-- Bundle Card Example -->
+                <div class="card">
+                    <div class="logo-card">
+                        <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg">
+                    </div>
+                    <div class="bundle-title">1GB Daily</div>
+                    <div class="validity">Valid: 24 Hours</div>
+                    <div class="price">KSh 55</div>
+                    <div class="buy-label">BUY FOR:</div>
+                    <div class="buttons">
+                        <button class="self-button" onclick="buySelf('1GB Daily', 55)">Self</button>
+                        <button class="others-button" onclick="window.location.href='others.html?bundle=1GB Daily&price=55'">Others</button>
+                    </div>
+                </div>
+                <!-- Add more bundle cards here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Minutes Section -->
+    <div id="minutes" class="section">
         <div class="grid">
             <div class="card">
-                <div class="logo-card"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-                <div class="bundle-title">1GB Daily</div>
-                <div class="validity">Valid: 24 Hours</div>
-                <div class="price">KSh 55</div>
+                <div class="logo-card">
+                    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg">
+                </div>
+                <div class="bundle-title">500 Minutes</div>
+                <div class="validity">Valid: 7 Days</div>
+                <div class="price">KSh 475</div>
                 <div class="buy-label">BUY FOR:</div>
                 <div class="buttons">
-                    <button class="self-button" onclick="buySelf('1GB Daily', 55)">Self</button>
-                    <button class="others-button" onclick="window.location.href='others.html?bundle=1GB Daily&price=55'">Others</button>
+                    <button class="self-button" onclick="buySelf('500 Minutes', 475)">Self</button>
+                    <button class="others-button" onclick="window.location.href='others.html?bundle=500 Minutes&price=475'">Others</button>
                 </div>
             </div>
-            <!-- You can add more offers here following same card structure -->
         </div>
     </div>
-</div>
 
-<!-- Minutes Section -->
-<div id="minutes" class="section">
-    <div class="grid">
-        <div class="card">
-            <div class="logo-card"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-            <div class="bundle-title">500 Minutes</div>
-            <div class="validity">Valid: 7 Days</div>
-            <div class="price">KSh 475</div>
-            <div class="buy-label">BUY FOR:</div>
-            <div class="buttons">
-                <button class="self-button" onclick="buySelf('500 Minutes', 475)">Self</button>
-                <button class="others-button" onclick="window.location.href='others.html?bundle=500 Minutes&price=475'">Others</button>
+    <!-- SMS Section -->
+    <div id="sms" class="section">
+        <div class="grid">
+            <div class="card">
+                <div class="logo-card">
+                    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg">
+                </div>
+                <div class="bundle-title">100 SMS</div>
+                <div class="validity">Valid: 30 Days</div>
+                <div class="price">KSh 100</div>
+                <div class="buy-label">BUY FOR:</div>
+                <div class="buttons">
+                    <button class="self-button" onclick="buySelf('100 SMS', 100)">Self</button>
+                    <button class="others-button" onclick="window.location.href='others.html?bundle=100 SMS&price=100'">Others</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- SMS Section -->
-<div id="sms" class="section">
-    <div class="grid">
-        <div class="card">
-            <div class="logo-card"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-            <div class="bundle-title">100 SMS</div>
-            <div class="validity">Valid: 30 Days</div>
-            <div class="price">KSh 100</div>
-            <div class="buy-label">BUY FOR:</div>
-            <div class="buttons">
-                <button class="self-button" onclick="buySelf('100 SMS', 100)">Self</button>
-                <button class="others-button" onclick="window.location.href='others.html?bundle=100 SMS&price=100'">Others</button>
-            </div>
-        </div>
-    </div>
-</div>
+    <!-- Footer -->
+    <footer>
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="https://wa.me/254729952483" target="_blank">Support</a>
+    </footer>
 
-<footer>
-    <a href="terms.html">Terms & Conditions</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="https://wa.me/254729952483" target="_blank">Support</a>
-</footer>
+    <!-- Scripts -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script>
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('show'); }
+        function closeSidebar() { document.getElementById('sidebar').classList.remove('show'); }
+        function selectMain(section) {
+            document.getElementById('mainSelect').value = section;
+            changeMain(); closeSidebar();
+        }
+        function changeMain() {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            let main = document.getElementById('mainSelect').value;
+            document.getElementById(main).classList.add('active');
+            document.getElementById('bundleSubSelectArea').style.display = (main === 'bundles') ? 'inline' : 'none';
+        }
+        function changeBundle() {
+            document.querySelectorAll('#bundles > .section').forEach(s => s.classList.remove('active'));
+            let sub = document.getElementById('bundleSelect').value;
+            document.getElementById(sub).classList.add('active');
+        }
+        function buySelf(bundleName, price) {
+            const phone = prompt("Enter your M-PESA number:");
+            if(!phone) return;
+            let handler = PaystackPop.setup({
+                key: 'pk_live_2508586704139143',
+                email: 'test@quicktel.com',
+                amount: price * 100,
+                currency: 'KES',
+                metadata: {
+                    custom_fields: [
+                        { display_name: "Bundle", variable_name: "bundle", value: bundleName },
+                        { display_name: "Payer", variable_name: "payer", value: phone },
+                        { display_name: "Recipient", variable_name: "recipient", value: phone }
+                    ]
+                },
+                callback: function(response) { alert("Payment successful: " + response.reference); },
+                onClose: function() { alert("Transaction cancelled"); }
+            });
+            handler.openIframe();
+        }
+    </script>
 
-<script src="https://js.paystack.co/v1/inline.js"></script>
-<script>
-function toggleSidebar() { document.getElementById('sidebar').classList.toggle('show'); }
-function closeSidebar() { document.getElementById('sidebar').classList.remove('show'); }
-
-function changeMain() {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    let main = document.getElementById('mainSelect').value;
-    document.getElementById(main).classList.add('active');
-    document.getElementById('bundleSubSelectArea').style.display = (main === 'bundles') ? 'inline' : 'none';
-}
-function changeBundle() {
-    document.querySelectorAll('#bundles > .section').forEach(s => s.classList.remove('active'));
-    let sub = document.getElementById('bundleSelect').value;
-    document.getElementById(sub).classList.add('active');
-}
-
-function buySelf(bundleName, price) {
-    const phone = prompt("Enter your M-PESA number:");
-    if(!phone) return;
-    let handler = PaystackPop.setup({
-        key: 'pk_live_2508586704139143',
-        email: 'test@quicktel.com',
-        amount: price * 100,
-        currency: 'KES',
-        metadata: {
-            custom_fields: [
-                { display_name: \"Bundle\", variable_name: \"bundle\", value: bundleName },
-                { display_name: \"Payer\", variable_name: \"payer\", value: phone },
-                { display_name: \"Recipient\", variable_name: \"recipient\", value: phone }
-            ]
-        },
-        callback: function(response) { alert(\"Payment successful: \" + response.reference); },
-        onClose: function() { alert(\"Transaction cancelled\"); }
-    });
-    handler.openIframe();
-}
-</script>
 </body>
 </html>
