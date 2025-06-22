@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quicktel - Buy for Others</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(to bottom right, #cceaff, #ffffff);
+            margin: 0; padding: 0;
+        }
+        header {
+            padding: 10px 20px;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo img { width: 50px; border-radius: 8px; }
+        h1 {
+            text-align: center;
+            color: #6a1b9a;
+            font-size: 2em;
+            margin: 20px 0;
+        }
+        .card {
+            max-width: 400px;
+            background: #fff;
+            margin: 30px auto;
+            padding: 30px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .card img { width: 80px; border-radius: 10px; margin-bottom: 15px; }
+        .bundle-title { font-size: 1.5em; color: green; margin-bottom: 10px; }
+        .price { font-size: 1.3em; color: #f28b82; margin-bottom: 15px; }
+        input {
+            width: 90%; padding: 12px; margin: 10px 0;
+            border-radius: 10px; border: 1px solid #999;
+            font-size: 1em;
+        }
+        button {
+            padding: 12px 30px; font-size: 1.1em;
+            background: #007bff; color: white; border: none;
+            border-radius: 10px; cursor: pointer; margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg">
+    </div>
+</header>
+
+<h1>Buy Bundle for Others</h1>
+
+<div class="card">
+    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg">
+    <div class="bundle-title" id="bundleName">Loading...</div>
+    <div class="price" id="bundlePrice"></div>
+
+    <input type="text" id="payerNumber" placeholder="Your Number (For Payment)">
+    <input type="text" id="recipientNumber" placeholder="Recipient Number">
+
+    <button onclick="payNow()">Pay Now</button>
+</div>
+
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+    // Get bundle and price from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const bundle = urlParams.get('bundle') || 'Unknown Bundle';
+    const price = urlParams.get('price') || 0;
+    document.getElementById('bundleName').innerText = bundle;
+    document.getElementById('bundlePrice').innerText = 'KSh ' + price;
+
+    function payNow() {
+        const payer = document.getElementById('payerNumber').value.trim();
+        const recipient = document.getElementById('recipientNumber').value.trim();
+
+        if (payer === '' || recipient === '') {
+            alert("Please enter both numbers.");
+            return;
+        }
+
+        let handler = PaystackPop.setup({
+            key: 'pk_live_2508586704139143',
+            email: 'test@quicktel.com',
+            amount: price * 100,
+            currency: 'KES',
+            metadata: {
+                custom_fields: [
+                    { display_name: "Bundle", variable_name: "bundle", value: bundle },
+                    { display_name: "Payer", variable_name: "payer", value: payer },
+                    { display_name: "Recipient", variable_name: "recipient", value: recipient }
+                ]
+            },
+            callback: function(response) {
+                alert("Payment successful: " + response.reference);
+                window.location.href = "index.html"; // Redirect after success
+            },
+            onClose: function() {
+                alert("Transaction cancelled");
+            }
+        });
+        handler.openIframe();
+    }
+</script>
+
+</body>
+</html>
