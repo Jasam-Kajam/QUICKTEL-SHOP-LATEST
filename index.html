@@ -1,181 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Quicktel Bundles App</title>
+    <title>Quicktel Bundles</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" sizes="192x192" href="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg">
-    <link rel="apple-touch-icon" href="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg">
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js').then(() => console.log("Service Worker Registered"));
-        }
-    </script>
-    <script src="https://js.paystack.co/v1/inline.js"></script>
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(to bottom right, #f7f9fb, #ffffff);
-            color: #333; margin: 0; padding: 0;
+            background: linear-gradient(to bottom right, #cceaff, #ffffff);
+            margin: 0;
+            padding: 0;
         }
-        h1 { text-align: center; color: purple; font-size: 2.5em; margin: 20px 0; }
-        .dropdown-container { text-align: center; margin-bottom: 30px; }
-        select {
-            font-size: 1.2em; padding: 10px 20px; border-radius: 10px;
-            border: 2px solid purple; background: white; color: #333; cursor: pointer;
+        h1 {
+            text-align: center;
+            color: purple;
+            font-size: 2.5em;
+            margin: 20px 0;
         }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 20px; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
         .card {
-            background: #fff; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            padding: 20px; text-align: center;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            padding: 25px 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
         }
-        .logo img { width: 80px; border-radius: 10px; }
-        .bundle-title { font-size: 1.5em; color: green; font-weight: bold; }
-        .validity { color: #555; margin: 10px 0; }
-        .price { font-size: 1.4em; color: #f28b82; font-weight: bold; }
-        .buy-label { color: gold; margin: 10px 0; }
-        .buttons { display: flex; justify-content: center; gap: 15px; }
+        .card:hover { transform: translateY(-5px); }
+        .logo img { width: 80px; border-radius: 10px; margin-bottom: 10px; }
+        .bundle-title { font-size: 1.6em; font-weight: 600; color: green; margin-bottom: 8px; }
+        .validity { font-size: 1.1em; color: #555; font-weight: 500; margin-bottom: 10px; }
+        .price { font-size: 1.4em; color: #f28b82; font-weight: bold; margin-bottom: 15px; }
+        .buy-label { font-size: 1em; color: #FFD700; font-weight: 600; margin-bottom: 10px; }
+        .buttons { display: flex; justify-content: center; gap: 10px; }
         .self-button, .others-button {
-            padding: 10px 20px; border: none; border-radius: 10px; font-weight: 500; cursor: pointer;
+            border: none; border-radius: 8px; padding: 10px 20px; font-size: 1em; font-weight: 500; cursor: pointer;
         }
-        .self-button { background: #333; color: white; }
-        .others-button { background: #007bff; color: white; }
-        footer { text-align: center; padding: 20px; font-size: 0.9em; background: #eee; margin-top: 50px; }
-        .menu-btn { position: absolute; top: 10px; right: 10px; font-size: 30px; cursor: pointer; }
-        .menu-content {
-            display: none; position: absolute; top: 50px; right: 10px;
-            background: white; border: 1px solid #ddd; border-radius: 8px;
-            padding: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        .menu-content a {
-            display: block; padding: 8px; text-decoration: none; color: #333;
-        }
+        .self-button { background-color: #333; color: white; }
+        .others-button { background-color: #007bff; color: white; }
     </style>
 </head>
-<body>
-
-<div class="menu-btn" onclick="toggleMenu()">&#9776;</div>
-<div class="menu-content" id="menuContent">
-    <a href="terms.html">Terms & Conditions</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="#" onclick="selectCategory('bundles')">Bundles</a>
-    <a href="#" onclick="selectCategory('minutes')">Minutes</a>
-    <a href="#" onclick="selectCategory('sms')">SMS</a>
-    <a href="https://wa.me/254729952483" target="_blank">Support</a>
-</div>
-
-<h1>QUICKTEL BUNDLES APP</h1>
-
-<div class="dropdown-container">
-<div style="text-align:center; margin-bottom:20px;">
-    <button id="installBtn" style="padding: 15px 30px; font-size: 1.2em; border: none; border-radius: 10px; background: purple; color: white; cursor: pointer; display: none;">
-        📲 Install Quicktel App
-    </button>
-</div>
-    <label>Main Category:</label>
-    <select id="mainSelect" onchange="changeMain()">
-        <option value="bundles">Bundles</option>
-        <option value="minutes">Minutes</option>
-        <option value="sms">SMS</option>
-    </select>
-</div>
-
-<!-- BUNDLES SECTION -->
-<div id="bundles" class="section">
-    <div class="grid">
-
-        <!-- SAMPLE BUNDLE CARD - Paste all previous offers here -->
-        <div class="card">
-            <div class="logo"><img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg"></div>
-            <div class="bundle-title">1GB Daily</div>
-            <div class="validity">Valid: 24 Hours</div>
-            <div class="price">KSh 55</div>
-            <div class="buy-label">BUY FOR:</div>
-            <div class="buttons">
-                <button class="self-button" onclick="payWithPaystack('1GB Daily', 55)">Self</button>
-                <button class="others-button">Others</button>
-            </div>
+<body><h1>QUICKTEL BUNDLES</h1><div class="grid">
+    <div class="card">
+        <div class="logo">
+            <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg">
         </div>
+        <div class="bundle-title">1GB Daily</div>
+        <div class="validity">Valid: 24 Hours</div>
+        <div class="price">KSh 55</div>
+        <div class="buy-label">BUY FOR:</div>
+        <div class="buttons">
+            <button class="self-button" onclick="buySelf('1GB Daily', 55)">Self</button>
+            <button class="others-button" onclick="window.location.href='others.html?bundle=1GB Daily&price=55'">Others</button>
+        </div>
+    </div><!-- You can duplicate this card below and insert your other offers -->
 
-        <!-- Add all other bundles same style -->
-
-    </div>
-</div>
-
-<!-- MINUTES SECTION -->
-<div id="minutes" class="section" style="display:none;">
-    <div class="grid">
-        <!-- Paste your 11 minutes offers here -->
-    </div>
-</div>
-
-<!-- SMS SECTION -->
-<div id="sms" class="section" style="display:none;">
-    <div class="grid">
-        <!-- Paste your 10+ SMS offers here -->
-    </div>
-</div>
-
-<footer>
-    &copy; 2025 Quicktel Bundles | 
-    <a href="terms.html">Terms</a> | 
-    <a href="privacy.html">Privacy</a> | 
-    <a href="https://wa.me/254729952483" target="_blank">Support</a>
-</footer>
-
-<script>
-let deferredPrompt;
-const installBtn = document.getElementById("installBtn");
-
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    installBtn.style.display = 'inline-block';
-});
-
-installBtn.addEventListener('click', async () => {
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-            console.log('User accepted the install');
-        }
-        deferredPrompt = null;
-        installBtn.style.display = 'none';
-    }
-});
-function changeMain() {
-    var main = document.getElementById("mainSelect").value;
-    document.getElementById("bundles").style.display = (main == "bundles") ? "block" : "none";
-    document.getElementById("minutes").style.display = (main == "minutes") ? "block" : "none";
-    document.getElementById("sms").style.display = (main == "sms") ? "block" : "none";
-}
-function payWithPaystack(bundle, amount) {
-    var handler = PaystackPop.setup({
-        key: 'pk_live_your_paystack_key_here',
-        email: 'customer@example.com',
-        amount: amount * 100,
+</div><script src="https://js.paystack.co/v1/inline.js"></script><script>
+function buySelf(bundleName, price) {
+    const phone = prompt("Enter your M-PESA number:");
+    if(!phone) return;
+    let handler = PaystackPop.setup({
+        key: 'pk_live_2508586704139143',
+        email: 'test@quicktel.com',
+        amount: price * 100,
         currency: 'KES',
-        callback: function(response) {
-            alert('Payment successful! Reference: ' + response.reference);
+        metadata: {
+            custom_fields: [
+                { display_name: "Bundle", variable_name: "bundle", value: bundleName },
+                { display_name: "Payer", variable_name: "payer", value: phone },
+                { display_name: "Recipient", variable_name: "recipient", value: phone }
+            ]
         },
-        onClose: function() {
-            alert('Transaction cancelled.');
-        }
+        callback: function(response) { alert("Payment successful: " + response.reference); },
+        onClose: function() { alert("Transaction cancelled"); }
     });
     handler.openIframe();
 }
-function toggleMenu() {
-    var menu = document.getElementById("menuContent");
-    menu.style.display = (menu.style.display === "block") ? "none" : "block";
-}
-function selectCategory(category) {
-    document.getElementById("mainSelect").value = category;
-    changeMain();
-    toggleMenu();
-}
-</script>
-
-</body>
+</script></body>
 </html>
