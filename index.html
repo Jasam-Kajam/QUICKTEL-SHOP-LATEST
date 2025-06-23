@@ -1,229 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Quicktel Bundles</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(to bottom right, #cceaff, #ffffff);
-            margin: 0; padding: 0;
-        }
-        header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 10px 20px; background: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .logo img { width: 50px; border-radius: 8px; }
-        .hamburger { font-size: 30px; cursor: pointer; }
-        .sidebar {
-            position: fixed; top: 0; right: -250px; width: 250px; height: 100%;
-            background: #fff; box-shadow: -2px 0 5px rgba(0,0,0,0.3);
-            transition: right 0.3s; padding: 20px; z-index: 999;
-        }
-        .sidebar a {
-            display: block; margin: 15px 0; font-size: 1.2em; color: purple;
-            text-decoration: none;
-        }
-        .sidebar.show { right: 0; }
-        h1 {
-            text-align: center; color: #6a1b9a;
-            font-size: 2.2em; margin: 20px 0;
-        }
-        .dropdown-container {
-            text-align: center; margin-bottom: 20px;
-        }
-        select {
-            font-size: 1.2em; padding: 10px 20px;
-            border-radius: 10px; border: 2px solid purple;
-            margin: 0 10px; background: white; color: #333; cursor: pointer;
-        }
-        .grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px; padding: 20px;
-        }
-        .card {
-            background: #fff; border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            padding: 25px 20px; text-align: center;
-            transition: transform 0.3s ease;
-        }
-        .card:hover { transform: translateY(-5px); }
-        .logo-card img { width: 80px; border-radius: 10px; margin-bottom: 10px; }
-        .bundle-title { font-size: 1.5em; font-weight: 600; color: green; margin-bottom: 8px; }
-        .validity { font-size: 1.1em; color: #555; margin-bottom: 10px; }
-        .price { font-size: 1.4em; color: #f28b82; font-weight: bold; margin-bottom: 15px; }
-        .buy-label { font-size: 1em; color: #FFD700; font-weight: 600; margin-bottom: 10px; }
-        .buttons { display: flex; justify-content: center; gap: 10px; }
-        .self-button, .others-button {
-            border: none; border-radius: 8px; padding: 10px 20px;
-            font-size: 1em; font-weight: 500; cursor: pointer; text-decoration: none;
-        }
-        .self-button { background-color: #333; color: white; }
-        .others-button { background-color: #007bff; color: white; display: inline-block; }
-        .section { display: none; }
-        .section.active { display: block; }
-        footer {
-            text-align: center; padding: 15px; background: #eee;
-            margin-top: 30px; font-size: 0.9em;
-        }
-        footer a { color: purple; margin: 0 10px; text-decoration: none; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel - Wafula Educational Posts</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f7f8; }
+    header { background-color: #1e3799; padding: 20px; color: white; text-align: center; }
+    .container { padding: 20px; max-width: 600px; margin: auto; }
+    .hidden { display: none; }
+    form { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    label { font-weight: bold; display: block; margin-top: 10px; }
+    input, select { width: 100%; padding: 10px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; }
+    button { background-color: #1e3799; color: white; padding: 10px 20px; margin-top: 20px; border: none; border-radius: 5px; }
+    .success { color: green; font-weight: bold; }
+    .error { color: red; font-weight: bold; }
+  </style>
 </head>
-
 <body>
 
-    <header>
-        <div class="logo">
-            <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg">
-        </div>
-        <div class="hamburger" onclick="toggleSidebar()">&#9776;</div>
-    </header>
+<header>
+  <h1>Admin Panel</h1>
+  <p>Wafula Educational Posts</p>
+</header>
 
-    <div class="sidebar" id="sidebar">
-        <a href="#" onclick="closeSidebar()">Close</a>
-        <a href="#" onclick="selectMain('bundles')">Bundles</a>
-        <a href="#" onclick="selectMain('minutes')">Minutes</a>
-        <a href="#" onclick="selectMain('sms')">SMS</a>
-        <a href="terms.html">Terms & Conditions</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="https://wa.me/254729952483" target="_blank">Support</a>
+<div class="container">
+
+  <div id="login-section">
+    <div id="g_id_onload"
+      data-client_id="YOUR_GOOGLE_CLIENT_ID"
+      data-callback="handleCredentialResponse">
     </div>
+    <div class="g_id_signin" data-type="standard"></div>
+  </div>
 
-    <h1>QUICKTEL BUNDLES</h1>
+  <div id="upload-section" class="hidden">
+    <h2>Upload New Material</h2>
+    <form id="upload-form">
+      <label>Title</label>
+      <input type="text" id="title" required>
 
-    <div class="dropdown-container">
-        <label>Main Category:</label>
-        <select id="mainSelect" onchange="changeMain()">
-            <option value="bundles">Bundles</option>
-            <option value="minutes">Minutes</option>
-            <option value="sms">SMS</option>
-        </select>
+      <label>Category</label>
+      <select id="category" required>
+        <option value="Mathematics">Mathematics</option>
+        <option value="Science">Science</option>
+        <option value="English">English</option>
+        <option value="History">History</option>
+        <option value="Geography">Geography</option>
+        <option value="Computer Science">Computer Science</option>
+      </select>
 
-        <span id="bundleSubSelectArea">
-            <label>Sub Category:</label>
-            <select id="bundleSelect" onchange="changeBundle()">
-                <option value="daily">Daily</option>
-                <option value="weekly">Weekly</option>
-                <option value="monthly">Monthly</option>
-                <option value="special">Special</option>
-            </select>
-        </span>
-    </div>
+      <label>File Type</label>
+      <select id="fileType" required>
+        <option value="PDF">PDF</option>
+        <option value="Video">Video</option>
+        <option value="Image">Image</option>
+      </select>
 
-    <!-- Bundles Section -->
-    <div id="bundles" class="section active">
+      <label>Choose File</label>
+      <input type="file" id="file" required>
 
-        <div id="daily" class="section active">
-            <div class="grid">
-                <div class="card">
-                    <div class="logo-card">
-                        <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg">
-                    </div>
-                    <div class="bundle-title">1GB Daily</div>
-                    <div class="validity">Valid: 24 Hours</div>
-                    <div class="price">KSh 55</div>
-                    <div class="buy-label">BUY FOR:</div>
-                    <div class="buttons">
-                        <button class="self-button" onclick="buySelf('1GB Daily', 55)">Self</button>
-                        <a class="others-button" href="others.html?bundle=1GB Daily&price=55">Others</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+      <button type="submit">Upload</button>
+      <p id="message"></p>
+    </form>
+  </div>
 
-        <!-- Empty placeholders for subcategories -->
-        <div id="weekly" class="section"><div class="grid"></div></div>
-        <div id="monthly" class="section"><div class="grid"></div></div>
-        <div id="special" class="section"><div class="grid"></div></div>
+</div>
 
-    </div>
+<script>
+  let token = "";
 
-    <!-- Minutes Section -->
-    <div id="minutes" class="section">
-        <div class="grid">
-            <div class="card">
-                <div class="logo-card">
-                    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg">
-                </div>
-                <div class="bundle-title">500 Minutes</div>
-                <div class="validity">Valid: 7 Days</div>
-                <div class="price">KSh 475</div>
-                <div class="buy-label">BUY FOR:</div>
-                <div class="buttons">
-                    <button class="self-button" onclick="buySelf('500 Minutes', 475)">Self</button>
-                    <a class="others-button" href="others.html?bundle=500 Minutes&price=475">Others</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SMS Section -->
-    <div id="sms" class="section">
-        <div class="grid">
-            <div class="card">
-                <div class="logo-card">
-                    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg">
-                </div>
-                <div class="bundle-title">100 SMS</div>
-                <div class="validity">Valid: 30 Days</div>
-                <div class="price">KSh 100</div>
-                <div class="buy-label">BUY FOR:</div>
-                <div class="buttons">
-                    <button class="self-button" onclick="buySelf('100 SMS', 100)">Self</button>
-                    <a class="others-button" href="others.html?bundle=100 SMS&price=100">Others</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <a href="terms.html">Terms & Conditions</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="https://wa.me/254729952483" target="_blank">Support</a>
-    </footer>
-
-    <script src="https://js.paystack.co/v1/inline.js"></script>
-    <script>
-        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('show'); }
-        function closeSidebar() { document.getElementById('sidebar').classList.remove('show'); }
-        function selectMain(section) {
-            document.getElementById('mainSelect').value = section;
-            changeMain(); closeSidebar();
+  function handleCredentialResponse(response) {
+    token = response.credential;
+    fetch('https://oauth2.googleapis.com/tokeninfo?id_token=' + token)
+      .then(res => res.json())
+      .then(user => {
+        if (user.email === "weks254@gmail.com") {
+          document.getElementById('login-section').classList.add('hidden');
+          document.getElementById('upload-section').classList.remove('hidden');
+        } else {
+          alert("Access Denied. You are not authorized.");
         }
-        function changeMain() {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            let main = document.getElementById('mainSelect').value;
-            document.getElementById(main).classList.add('active');
-            document.getElementById('bundleSubSelectArea').style.display = (main === 'bundles') ? 'inline' : 'none';
-        }
-        function changeBundle() {
-            document.querySelectorAll('#bundles > .section').forEach(s => s.classList.remove('active'));
-            let sub = document.getElementById('bundleSelect').value;
-            document.getElementById(sub).classList.add('active');
-        }
-        function buySelf(bundleName, price) {
-            const phone = prompt("Enter your M-PESA number:");
-            if(!phone) return;
-            let handler = PaystackPop.setup({
-                key: 'pk_live_2508586704139143',
-                email: 'test@quicktel.com',
-                amount: price * 100,
-                currency: 'KES',
-                metadata: {
-                    custom_fields: [
-                        { display_name: "Bundle", variable_name: "bundle", value: bundleName },
-                        { display_name: "Payer", variable_name: "payer", value: phone },
-                        { display_name: "Recipient", variable_name: "recipient", value: phone }
-                    ]
-                },
-                callback: function(response) { alert("Payment successful: " + response.reference); },
-                onClose: function() { alert("Transaction cancelled"); }
-            });
-            handler.openIframe();
-        }
-    </script>
+      });
+  }
+
+  document.getElementById("upload-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("file", document.getElementById("file").files[0]);
+    formData.append("title", document.getElementById("title").value);
+    formData.append("category", document.getElementById("category").value);
+    formData.append("fileType", document.getElementById("fileType").value);
+
+    fetch("http://localhost:4000/upload", {
+      method: "POST",
+      headers: { "Authorization": token },
+      body: formData
+    }).then(res => {
+      if (res.ok) {
+        document.getElementById("message").innerHTML = "✅ Upload successful.";
+        document.getElementById("message").className = "success";
+        document.getElementById("upload-form").reset();
+      } else {
+        document.getElementById("message").innerHTML = "❌ Upload failed.";
+        document.getElementById("message").className = "error";
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
