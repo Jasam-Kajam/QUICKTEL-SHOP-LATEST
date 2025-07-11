@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Bundle Store</title>
@@ -9,96 +8,95 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-    }
+    }body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  scroll-behavior: smooth;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      scroll-behavior: smooth;
-    }
+header {
+  background: #111;
+  color: white;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    header {
-      background: #111;
-      color: white;
-      padding: 1rem;
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+.logo {
+  font-size: 1.2rem;
+}
 
-    .logo {
-      font-size: 1.2rem;
-    }
+.nav-toggle {
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: none;
+}
 
-    .nav-toggle {
-      font-size: 1.8rem;
-      cursor: pointer;
-      display: none;
-    }
+nav {
+  display: flex;
+  gap: 1rem;
+}
 
-    nav {
-      display: flex;
-      gap: 1rem;
-    }
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5rem;
+}
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      padding: 0.5rem;
-    }
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: block;
+  }
 
-    @media (max-width: 768px) {
-      .nav-toggle {
-        display: block;
-      }
+  nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: #222;
+    padding: 1rem;
+  }
 
-      nav {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        background: #222;
-        padding: 1rem;
-      }
+  nav.active {
+    display: flex;
+  }
+}
 
-      nav.active {
-        display: flex;
-      }
-    }
+main {
+  padding-top: 80px;
+  max-width: 1000px;
+  margin: auto;
+}
 
-    main {
-      padding-top: 80px;
-      max-width: 1000px;
-      margin: auto;
-    }
+section {
+  margin: 20px;
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
 
-    section {
-      margin: 20px;
-      padding: 10px;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
+section h2 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #333;
+}
 
-    section h2 {
-      margin-bottom: 10px;
-      font-size: 1.5rem;
-      color: #333;
-    }
+iframe {
+  width: 100%;
+  height: 600px;
+  border: none;
+  border-radius: 6px;
+}
 
-    iframe {
-      width: 100%;
-      height: 600px;
-      border: none;
-      border-radius: 6px;
-    }
   </style>
 </head>
 <body>
@@ -111,31 +109,26 @@
       <a href="#minutes">Minutes</a>
       <a href="#offers">Offers</a>
     </nav>
-  </header>
-
-  <main>
+  </header>  <main>
     <section id="bundles">
       <h2>Bundles</h2>
       <iframe srcdoc='<!DOCTYPE html><html><head><style>body{font-family:monospace;background:#e0f7fa;padding:20px}.bundle{background:white;padding:10px;margin:10px 0;border-radius:5px;box-shadow:0 1px 3px rgba(0,0,0,0.1)}</style></head><body><div class="bundle">1GB for $1.99</div><div class="bundle">5GB for $6.99</div></body></html>'></iframe>
-    </section>
+    </section><section id="sms">
+  <h2>SMS</h2>
+  <iframe srcdoc='<!DOCTYPE html><html><head><style>body{background:#fff3e0;font-family:serif;padding:20px}.sms{background:#fff;padding:15px;margin:10px 0;border-left:5px solid orange}</style></head><body><div class="sms">100 SMS – $0.50</div><div class="sms">1000 SMS – $4.99</div></body></html>'></iframe>
+</section>
 
-    <section id="sms">
-      <h2>SMS</h2>
-      <iframe srcdoc='<!DOCTYPE html><html><head><style>body{background:#fff3e0;font-family:serif;padding:20px}.sms{background:#fff;padding:15px;margin:10px 0;border-left:5px solid orange}</style></head><body><div class="sms">100 SMS – $0.50</div><div class="sms">1000 SMS – $4.99</div></body></html>'></iframe>
-    </section>
+<section id="minutes">
+  <h2>Minutes</h2>
+  <iframe srcdoc='<!DOCTYPE html><html><head><style>body{background:#e8f5e9;font-family:sans-serif;padding:20px}.minute{border:1px dashed #388e3c;padding:10px;margin:10px 0;background:#fff}</style></head><body><div class="minute">Local: 60 mins – $2</div><div class="minute">International: 100 mins – $9.99</div></body></html>'></iframe>
+</section>
 
-    <section id="minutes">
-      <h2>Minutes</h2>
-      <iframe srcdoc='<!DOCTYPE html><html><head><style>body{background:#e8f5e9;font-family:sans-serif;padding:20px}.minute{border:1px dashed #388e3c;padding:10px;margin:10px 0;background:#fff}</style></head><body><div class="minute">Local: 60 mins – $2</div><div class="minute">International: 100 mins – $9.99</div></body></html>'></iframe>
-    </section>
+<section id="offers">
+  <h2>Special Offers</h2>
+  <iframe src="https://quicktel-bundle.onrender.com/offers.html"></iframe>
+</section>
 
-    <section id="offers">
-      <h2>Special Offers</h2>
-      <iframe src="quicktel-offers.html"></iframe>
-    </section>
-  </main>
-
-  <script>
+  </main>  <script>
     function toggleMenu() {
       document.getElementById("menu").classList.toggle("active");
     }
@@ -150,6 +143,5 @@
         });
       });
     });
-  </script>
-</body>
+  </script></body>
 </html>
