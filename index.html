@@ -196,6 +196,17 @@
     function toggleMenu() {
       document.getElementById("menu").classList.toggle("active");
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const links = document.querySelectorAll("#menu a");
+      const nav = document.getElementById("menu");
+
+      links.forEach(link => {
+        link.addEventListener("click", () => {
+          nav.classList.remove("active");
+        });
+      });
+    });
   </script>
 </body>
 </html>
