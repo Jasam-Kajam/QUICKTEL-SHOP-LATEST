@@ -95,14 +95,13 @@
 
     iframe {
       width: 100%;
-      height: 450px;
+      height: 600px;
       border: none;
       border-radius: 6px;
     }
   </style>
 </head>
 <body>
-
   <header>
     <div class="logo">📦 Bundle Store</div>
     <div class="nav-toggle" onclick="toggleMenu()">☰</div>
@@ -117,78 +116,22 @@
   <main>
     <section id="bundles">
       <h2>Bundles</h2>
-      <iframe srcdoc='
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <style>
-            body { font-family: monospace; background: #e0f7fa; padding: 20px; }
-            .bundle { background: white; padding: 10px; margin: 10px 0; border-radius: 5px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-          </style>
-        </head>
-        <body>
-          <div class="bundle">1GB for $1.99</div>
-          <div class="bundle">5GB for $6.99</div>
-        </body>
-        </html>
-      '></iframe>
+      <iframe srcdoc='<!DOCTYPE html><html><head><style>body{font-family:monospace;background:#e0f7fa;padding:20px}.bundle{background:white;padding:10px;margin:10px 0;border-radius:5px;box-shadow:0 1px 3px rgba(0,0,0,0.1)}</style></head><body><div class="bundle">1GB for $1.99</div><div class="bundle">5GB for $6.99</div></body></html>'></iframe>
     </section>
 
     <section id="sms">
       <h2>SMS</h2>
-      <iframe srcdoc='
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <style>
-            body { background: #fff3e0; font-family: serif; padding: 20px; }
-            .sms { background: #fff; padding: 15px; margin: 10px 0; border-left: 5px solid orange; }
-          </style>
-        </head>
-        <body>
-          <div class="sms">100 SMS – $0.50</div>
-          <div class="sms">1000 SMS – $4.99</div>
-        </body>
-        </html>
-      '></iframe>
+      <iframe srcdoc='<!DOCTYPE html><html><head><style>body{background:#fff3e0;font-family:serif;padding:20px}.sms{background:#fff;padding:15px;margin:10px 0;border-left:5px solid orange}</style></head><body><div class="sms">100 SMS – $0.50</div><div class="sms">1000 SMS – $4.99</div></body></html>'></iframe>
     </section>
 
     <section id="minutes">
       <h2>Minutes</h2>
-      <iframe srcdoc='
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <style>
-            body { background: #e8f5e9; font-family: sans-serif; padding: 20px; }
-            .minute { border: 1px dashed #388e3c; padding: 10px; margin: 10px 0; background: #fff; }
-          </style>
-        </head>
-        <body>
-          <div class="minute">Local: 60 mins – $2</div>
-          <div class="minute">International: 100 mins – $9.99</div>
-        </body>
-        </html>
-      '></iframe>
+      <iframe srcdoc='<!DOCTYPE html><html><head><style>body{background:#e8f5e9;font-family:sans-serif;padding:20px}.minute{border:1px dashed #388e3c;padding:10px;margin:10px 0;background:#fff}</style></head><body><div class="minute">Local: 60 mins – $2</div><div class="minute">International: 100 mins – $9.99</div></body></html>'></iframe>
     </section>
 
     <section id="offers">
       <h2>Special Offers</h2>
-      <iframe srcdoc='
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <style>
-            body { background: #fce4ec; font-family: Georgia, serif; padding: 20px; }
-            .offer { background: #fff; padding: 15px; margin: 10px 0; border-left: 6px solid #e91e63; }
-          </style>
-        </head>
-        <body>
-          <div class="offer">Weekend Deal: 10GB + 100 mins – $5.99</div>
-          <div class="offer">Night Owl: Unlimited 11PM–5AM – $2.99</div>
-        </body>
-        </html>
-      '></iframe>
+      <iframe src="quicktel-offers.html"></iframe>
     </section>
   </main>
 
