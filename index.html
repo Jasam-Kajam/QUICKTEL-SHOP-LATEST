@@ -5,12 +5,18 @@
   <title>Bundle Store</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: sans-serif;
-      background: #f2f2f2;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
       scroll-behavior: smooth;
     }
+
     header {
       background: #111;
       color: white;
@@ -18,60 +24,88 @@
       position: fixed;
       top: 0;
       width: 100%;
-      z-index: 100;
+      z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .nav-toggle {
-      display: none;
-      font-size: 1.5rem;
-      cursor: pointer;
+
+    .logo {
+      font-size: 1.2rem;
     }
+
+    .nav-toggle {
+      font-size: 1.8rem;
+      cursor: pointer;
+      display: none;
+    }
+
     nav {
       display: flex;
       gap: 1rem;
     }
+
     nav a {
       color: white;
       text-decoration: none;
+      font-weight: bold;
+      padding: 0.5rem;
     }
-    section {
-      padding-top: 80px;
-      margin: 40px 0;
-    }
-    iframe {
-      width: 100%;
-      height: 500px;
-      border: none;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-    @media (max-width: 700px) {
+
+    @media (max-width: 768px) {
+      .nav-toggle {
+        display: block;
+      }
+
       nav {
         display: none;
         flex-direction: column;
-        background: #333;
-        padding: 1rem;
         position: absolute;
         top: 60px;
         left: 0;
         width: 100%;
+        background: #222;
+        padding: 1rem;
       }
+
       nav.active {
         display: flex;
       }
-      .nav-toggle {
-        display: block;
-      }
+    }
+
+    main {
+      padding-top: 80px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    section {
+      margin: 20px;
+      padding: 10px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    section h2 {
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    iframe {
+      width: 100%;
+      height: 450px;
+      border: none;
+      border-radius: 6px;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Bundle Store</h1>
-    <span class="nav-toggle" onclick="toggleMenu()">☰</span>
+    <div class="logo">📦 Bundle Store</div>
+    <div class="nav-toggle" onclick="toggleMenu()">☰</div>
     <nav id="menu">
       <a href="#bundles">Bundles</a>
       <a href="#sms">SMS</a>
@@ -80,95 +114,83 @@
     </nav>
   </header>
 
-  <!-- Each section uses iframe with its own HTML + CSS + JS via srcdoc -->
-  
-  <section id="bundles">
-    <h2 style="padding-left:20px;">Data Bundles</h2>
-    <iframe srcdoc='
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <style>
-          body { font-family: monospace; background: #e0f7fa; padding: 20px; }
-          .item { background: white; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
-        </style>
-      </head>
-      <body>
-        <div class="item">1GB for $1.99</div>
-        <div class="item">5GB for $5.99</div>
-        <script>
-          console.log("Bundles loaded");
-        </script>
-      </body>
-      </html>
-    '></iframe>
-  </section>
+  <main>
+    <section id="bundles">
+      <h2>Bundles</h2>
+      <iframe srcdoc='
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: monospace; background: #e0f7fa; padding: 20px; }
+            .bundle { background: white; padding: 10px; margin: 10px 0; border-radius: 5px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+          </style>
+        </head>
+        <body>
+          <div class="bundle">1GB for $1.99</div>
+          <div class="bundle">5GB for $6.99</div>
+        </body>
+        </html>
+      '></iframe>
+    </section>
 
-  <section id="sms">
-    <h2 style="padding-left:20px;">SMS Packages</h2>
-    <iframe srcdoc='
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <style>
-          body { font-family: serif; background: #fff3e0; padding: 20px; }
-          .sms-pack { background: #fff; padding: 15px; margin: 10px 0; border-left: 5px solid orange; }
-        </style>
-      </head>
-      <body>
-        <div class="sms-pack">100 SMS / $0.99</div>
-        <div class="sms-pack">1000 SMS / $4.99</div>
-        <script>
-          console.log("SMS section ready");
-        </script>
-      </body>
-      </html>
-    '></iframe>
-  </section>
+    <section id="sms">
+      <h2>SMS</h2>
+      <iframe srcdoc='
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { background: #fff3e0; font-family: serif; padding: 20px; }
+            .sms { background: #fff; padding: 15px; margin: 10px 0; border-left: 5px solid orange; }
+          </style>
+        </head>
+        <body>
+          <div class="sms">100 SMS – $0.50</div>
+          <div class="sms">1000 SMS – $4.99</div>
+        </body>
+        </html>
+      '></iframe>
+    </section>
 
-  <section id="minutes">
-    <h2 style="padding-left:20px;">Call Minutes</h2>
-    <iframe srcdoc='
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <style>
-          body { background: #e8f5e9; font-family: sans-serif; padding: 20px; }
-          .call { border: 1px dashed #388e3c; padding: 10px; margin: 10px 0; }
-        </style>
-      </head>
-      <body>
-        <div class="call">Local: 60 mins – $2</div>
-        <div class="call">International: 100 mins – $10</div>
-        <script>
-          console.log("Minutes module initialized");
-        </script>
-      </body>
-      </html>
-    '></iframe>
-  </section>
+    <section id="minutes">
+      <h2>Minutes</h2>
+      <iframe srcdoc='
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { background: #e8f5e9; font-family: sans-serif; padding: 20px; }
+            .minute { border: 1px dashed #388e3c; padding: 10px; margin: 10px 0; background: #fff; }
+          </style>
+        </head>
+        <body>
+          <div class="minute">Local: 60 mins – $2</div>
+          <div class="minute">International: 100 mins – $9.99</div>
+        </body>
+        </html>
+      '></iframe>
+    </section>
 
-  <section id="offers">
-    <h2 style="padding-left:20px;">Special Offers</h2>
-    <iframe srcdoc='
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <style>
-          body { background: #fce4ec; padding: 20px; font-family: Georgia, serif; }
-          .offer { background: #fff; padding: 15px; margin: 10px 0; border-left: 6px solid #e91e63; }
-        </style>
-      </head>
-      <body>
-        <div class="offer">Weekend Bundle: 10GB + 100 mins – $6.99</div>
-        <div class="offer">Night Owl: Unlimited 11PM–5AM – $2.50</div>
-        <script>
-          alert("Special Offers Ready!");
-        </script>
-      </body>
-      </html>
-    '></iframe>
-  </section>
+    <section id="offers">
+      <h2>Special Offers</h2>
+      <iframe srcdoc='
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { background: #fce4ec; font-family: Georgia, serif; padding: 20px; }
+            .offer { background: #fff; padding: 15px; margin: 10px 0; border-left: 6px solid #e91e63; }
+          </style>
+        </head>
+        <body>
+          <div class="offer">Weekend Deal: 10GB + 100 mins – $5.99</div>
+          <div class="offer">Night Owl: Unlimited 11PM–5AM – $2.99</div>
+        </body>
+        </html>
+      '></iframe>
+    </section>
+  </main>
 
   <script>
     function toggleMenu() {
