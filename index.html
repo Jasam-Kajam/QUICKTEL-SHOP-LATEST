@@ -2,114 +2,178 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Panel - Wafula Educational Posts</title>
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <title>Bundle Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f7f8; }
-    header { background-color: #1e3799; padding: 20px; color: white; text-align: center; }
-    .container { padding: 20px; max-width: 600px; margin: auto; }
-    .hidden { display: none; }
-    form { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    label { font-weight: bold; display: block; margin-top: 10px; }
-    input, select { width: 100%; padding: 10px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; }
-    button { background-color: #1e3799; color: white; padding: 10px 20px; margin-top: 20px; border: none; border-radius: 5px; }
-    .success { color: green; font-weight: bold; }
-    .error { color: red; font-weight: bold; }
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #f2f2f2;
+      scroll-behavior: smooth;
+    }
+    header {
+      background: #111;
+      color: white;
+      padding: 1rem;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    nav {
+      display: flex;
+      gap: 1rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+    }
+    section {
+      padding-top: 80px;
+      margin: 40px 0;
+    }
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    @media (max-width: 700px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        background: #333;
+        padding: 1rem;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+      }
+      nav.active {
+        display: flex;
+      }
+      .nav-toggle {
+        display: block;
+      }
+    }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>Admin Panel</h1>
-  <p>Wafula Educational Posts</p>
-</header>
+  <header>
+    <h1>Bundle Store</h1>
+    <span class="nav-toggle" onclick="toggleMenu()">☰</span>
+    <nav id="menu">
+      <a href="#bundles">Bundles</a>
+      <a href="#sms">SMS</a>
+      <a href="#minutes">Minutes</a>
+      <a href="#offers">Offers</a>
+    </nav>
+  </header>
 
-<div class="container"> 
+  <!-- Each section uses iframe with its own HTML + CSS + JS via srcdoc -->
+  
+  <section id="bundles">
+    <h2 style="padding-left:20px;">Data Bundles</h2>
+    <iframe srcdoc='
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <style>
+          body { font-family: monospace; background: #e0f7fa; padding: 20px; }
+          .item { background: white; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
+        </style>
+      </head>
+      <body>
+        <div class="item">1GB for $1.99</div>
+        <div class="item">5GB for $5.99</div>
+        <script>
+          console.log("Bundles loaded");
+        </script>
+      </body>
+      </html>
+    '></iframe>
+  </section>
 
-  <div id="login-section">
-    <div id="g_id_onload"
-      data-client_id="YOUR_GOOGLE_CLIENT_ID"
-      data-callback="handleCredentialResponse">
-    </div>
-    <div class="g_id_signin" data-type="standard"></div>
-  </div>
+  <section id="sms">
+    <h2 style="padding-left:20px;">SMS Packages</h2>
+    <iframe srcdoc='
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <style>
+          body { font-family: serif; background: #fff3e0; padding: 20px; }
+          .sms-pack { background: #fff; padding: 15px; margin: 10px 0; border-left: 5px solid orange; }
+        </style>
+      </head>
+      <body>
+        <div class="sms-pack">100 SMS / $0.99</div>
+        <div class="sms-pack">1000 SMS / $4.99</div>
+        <script>
+          console.log("SMS section ready");
+        </script>
+      </body>
+      </html>
+    '></iframe>
+  </section>
 
-  <div id="upload-section" class="hidden">
-    <h2>Upload New Material</h2>
-    <form id="upload-form">
-      <label>Title</label>
-      <input type="text" id="title" required>
+  <section id="minutes">
+    <h2 style="padding-left:20px;">Call Minutes</h2>
+    <iframe srcdoc='
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <style>
+          body { background: #e8f5e9; font-family: sans-serif; padding: 20px; }
+          .call { border: 1px dashed #388e3c; padding: 10px; margin: 10px 0; }
+        </style>
+      </head>
+      <body>
+        <div class="call">Local: 60 mins – $2</div>
+        <div class="call">International: 100 mins – $10</div>
+        <script>
+          console.log("Minutes module initialized");
+        </script>
+      </body>
+      </html>
+    '></iframe>
+  </section>
 
-      <label>Category</label>
-      <select id="category" required>
-        <option value="Mathematics">Mathematics</option>
-        <option value="Science">Science</option>
-        <option value="English">English</option>
-        <option value="History">History</option>
-        <option value="Geography">Geography</option>
-        <option value="Computer Science">Computer Science</option>
-      </select>
+  <section id="offers">
+    <h2 style="padding-left:20px;">Special Offers</h2>
+    <iframe srcdoc='
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <style>
+          body { background: #fce4ec; padding: 20px; font-family: Georgia, serif; }
+          .offer { background: #fff; padding: 15px; margin: 10px 0; border-left: 6px solid #e91e63; }
+        </style>
+      </head>
+      <body>
+        <div class="offer">Weekend Bundle: 10GB + 100 mins – $6.99</div>
+        <div class="offer">Night Owl: Unlimited 11PM–5AM – $2.50</div>
+        <script>
+          alert("Special Offers Ready!");
+        </script>
+      </body>
+      </html>
+    '></iframe>
+  </section>
 
-      <label>File Type</label>
-      <select id="fileType" required>
-        <option value="PDF">PDF</option>
-        <option value="Video">Video</option>
-        <option value="Image">Image</option>
-      </select>
-
-      <label>Choose File</label>
-      <input type="file" id="file" required>
-
-      <button type="submit">Upload</button>
-      <p id="message"></p>
-    </form>
-  </div>
-
-</div>
-
-<script>
-  let token = "";
-
-  function handleCredentialResponse(response) {
-    token = response.credential;
-    fetch('https://oauth2.googleapis.com/tokeninfo?id_token=' + token)
-      .then(res => res.json())
-      .then(user => {
-        if (user.email === "weks254@gmail.com") {
-          document.getElementById('login-section').classList.add('hidden');
-          document.getElementById('upload-section').classList.remove('hidden');
-        } else {
-          alert("Access Denied. You are not authorized.");
-        }
-      });
-  }
-
-  document.getElementById("upload-form").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("file", document.getElementById("file").files[0]);
-    formData.append("title", document.getElementById("title").value);
-    formData.append("category", document.getElementById("category").value);
-    formData.append("fileType", document.getElementById("fileType").value);
-
-    fetch("http://localhost:4000/upload", {
-      method: "POST",
-      headers: { "Authorization": token },
-      body: formData
-    }).then(res => {
-      if (res.ok) {
-        document.getElementById("message").innerHTML = "✅ Upload successful.";
-        document.getElementById("message").className = "success";
-        document.getElementById("upload-form").reset();
-      } else {
-        document.getElementById("message").innerHTML = "❌ Upload failed.";
-        document.getElementById("message").className = "error";
-      }
-    });
-  });
-</script>
-
+  <script>
+    function toggleMenu() {
+      document.getElementById("menu").classList.toggle("active");
+    }
+  </script>
 </body>
 </html>
