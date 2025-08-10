@@ -1,179 +1,22 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Bundle Store</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <title>week.gt.tc Loader</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    * {
-      box-sizing: border-box;
+    html, body {
+      height: 100%;
       margin: 0;
-      padding: 0;
-    }body {
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  scroll-behavior: smooth;
-}
-
-footer {
-  background: white;
-  color: #333;
-  text-align: center;
-  padding: 20px;
-  margin: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  font-size: 0.95rem;
-}
-
-footer a {
-  color: #007bff;
-  margin: 0 10px;
-  text-decoration: none;
-}
-
-footer a:hover {
-  text-decoration: underline;
-}
-
-header {
-  background: #111;
-  color: white;
-  padding: 1rem;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-size: 1.2rem;
-}
-
-.nav-toggle {
-  font-size: 1.8rem;
-  cursor: pointer;
-  display: none;
-}
-
-nav {
-  display: flex;
-  gap: 1rem;
-}
-
-nav a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 0.5rem;
-}
-
-@media (max-width: 768px) {
-  .nav-toggle {
-    display: block;
-  }
-
-  nav {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    background: #222;
-    padding: 1rem;
-  }
-
-  nav.active {
-    display: flex;
-  }
-}
-
-main {
-  padding-top: 80px;
-  max-width: 1000px;
-  margin: auto;
-}
-
-section {
-  margin: 20px;
-  padding: 10px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-section h2 {
-  margin-bottom: 10px;
-  font-size: 1.5rem;
-  color: #333;
-}
-
-iframe {
-  width: 100%;
-  height: 600px;
-  border: none;
-  border-radius: 6px;
-}
-
+    }
+    iframe {
+      border: none;
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">📦 Bundle Store</div>
-    <div class="nav-toggle" onclick="toggleMenu()">☰</div>
-    <nav id="menu">
-      <a href="#bundles">Bundles</a>
-      <a href="#sms">SMS</a>
-      <a href="#minutes">Minutes</a>
-      <a href="#offers">Offers</a>
-    </nav>
-  </header>  <main>
-    <section id="bundles">
-      <h2>Bundles</h2>
-      <iframe src="https://quicktel-bundle.onrender.com/bundle.html"></iframe>
-</section>
-  <h2>SMS</h2>
-  <iframe src="https://quicktel-bundles.onrender.com/quicktel.html"></iframe>
-</section>
-
-<section id="minutes">
-  <h2>Minutes</h2>
-<iframe src="https://quicktel-shop.onrender.com"></iframe>
-</section>
-  
-
-<section id="offers">
-  <h2>Special Offers</h2>
-  <iframe src="https://quicktel-bundle.onrender.com/special.html"></iframe>
-</section>
-
-  </main>  
-<footer>
-    <p>
-      <a href="https://quicktel-bundle.onrender.com/terms.html" target="_blank">Terms & Conditions</a> |
-      <a href="https://quicktel-bundle.onrender.com/privacy.html" target="_blank">Privacy Policy</a> |
-      <a href="https://wa.me/254729952483" target="_blank">Support</a>
-    </p>
-    <p>&copy; 2025 Quicktel Bundle Store</p>
-  </footer>
-
-<script>
-    function toggleMenu() {
-      document.getElementById("menu").classList.toggle("active");
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      const links = document.querySelectorAll("#menu a");
-      const nav = document.getElementById("menu");
-
-      links.forEach(link => {
-        link.addEventListener("click", () => {
-          nav.classList.remove("active");
-        });
-      });
-    });
-  </script></body>
+  <iframe src="https://week.gt.tc"></iframe>
+</body>
 </html>
